@@ -45,3 +45,17 @@ body {
 #id {
 	display: none;
 }
+/* Color Theme Swatches in Hex */
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-1-hex { color: #2405F2; } 
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-2-hex { color: #1D04BF; }
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-3-hex { color: #07038C; }
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-4-hex { color: #858BF2; }
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-5-hex { color: #F2D64B; }
+
+/* Color Theme Swatches in RGBA */
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-1-rgba { color: rgba(36, 4, 242, 1); }
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-2-rgba { color: rgba(28, 3, 191, 1); }
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-3-rgba { color: rgba(7, 2, 140, 1); }
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-4-rgba { color: rgba(133, 138, 242, 1); }
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-5-rgba { color: rgba(242, 214, 75, 1); }
+

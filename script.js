@@ -152,8 +152,6 @@ class complementation {
     	if (this.searchElement[0].value != this.previousValue) { // Si le contenu du champ de recherche a changé
 	
 	        this.previousValue = this.searchElement[0].value;
-			console.log(this.previousRequest);
-			console.log(XMLHttpRequest.DONE);
 	        if (this.previousRequest && this.previousRequest.readyState < XMLHttpRequest.DONE) {
 	            this.previousRequest.abort(); // Si on a toujours une requête en cours, on l'arrête
         	}

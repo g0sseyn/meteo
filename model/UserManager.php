@@ -8,4 +8,17 @@ class UserManager extends Manager
     	$infos = $req->fetch();
     	return $infos;
 	}
+	public function addUser($lastName,$firstName,$identifiant,$email,$password){
+		$user = $this->db->prepare('INSERT INTO identifiant(lastname,firstname,identifiant,mail,password) VALUES (:lastName,:firstName,:identifiant,:email,:password)');
+		$affectedLines = $user->execute(array('lastName'=>$lastName,'firstName'=>$firstName,'identifiant'=>$identifiant,'email'=>$email,'password'=>$password));
+
+		return $affectedLines;
+	}
+	public function verifyMail($mail){
+		$req = $this->db->prepare('SELECT * FROM identifiant WHERE mail = ?');
+		$req->execute(array($mail));
+		$infos = $req->fetch();
+
+		return $infos;
+	}
 }

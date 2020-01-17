@@ -18,7 +18,11 @@ try {
 			meteo();
 		}else if (isset($_GET['s'])){
 			require('view/test.php');
-		}
+		}else if ($_GET['action']=='free'){
+			meteo();
+		}else if ($_GET['action']=='validInscription'){
+			validInscription();
+		}	
 	}
 	
 	else {

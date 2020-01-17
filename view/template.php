@@ -31,6 +31,9 @@
 		<?php if (isset($form)) {
 				echo $form;
 		} ?>
+		<?php if (isset($formInscription)) {
+				echo $formInscription;
+		} ?>
 	</div>
 	<?php if (isset($meteo)) {
 				echo $meteo;
