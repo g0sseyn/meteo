@@ -132,7 +132,7 @@ class complementation {
 	
 	}
 	
-	chooseResult(result) { // Choisi un des résultats d'une requête et gère tout ce qui y est attaché
+	chooseResult(result) {
 		this.chosenLoc=result.id;
 	    this.searchElement[0].value = this.previousValue = result.innerHTML; // On change le contenu du champ de recherche et on enregistre en tant que précédente valeur
 	    this.results[0].style.display = 'none'; // On cache les résultats
