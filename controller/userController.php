@@ -26,18 +26,17 @@ function deco(){
 }
 function validInscription(){
 
-	if (empty($_POST['inputLastName'])||empty($_POST['inputFirstName'])||empty($_POST['inputIdentifiant'])||empty($_POST['inputEmail'])||empty($_POST['inputPassword'])) {
+	if (empty($_POST['inputEmail'])||empty($_POST['inputPassword'])) {
 		throw new Exception('Tous les champs ne sont pas remplis !');		
 	}
 	$userManager = new UserManager();	
 	if ($userManager->verifyMail($_POST['inputEmail'])) {
 		throw new Exception('l\'Email est déjà existant');	
 	}
-	$affectedLines = $userManager->addUser($_POST['inputLastName'],$_POST['inputFirstName'],$_POST['inputIdentifiant'],$_POST['inputEmail'],$_POST['inputPassword']);
+	$affectedLines = $userManager->addUser($_POST['inputEmail'],$_POST['inputPassword']);
 	if ($affectedLines === false) {
         throw new Exception('Impossible de vous ajouter');
     }    
 
-	require('view/test.php');
 	
 }

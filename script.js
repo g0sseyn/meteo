@@ -166,3 +166,36 @@ class complementation {
 	
 };
 var complement = new complementation;
+$('.formInscription').hide();
+$('.free').click(function(){
+	$('.connection').animate({height:"0",margin:"0"},1000,function(){
+		$('.connection').hide();
+	});
+	$('.inscription').animate({height:"0",margin:"0"},1000,function(){
+		$('.inscription').hide();
+	});
+	$('.bloc').animate({width:"90%"},1500);		
+})
+$('.connection').click(function(){
+	$('.free').animate({height:"0",margin:"0"},1000,function(){
+		$('.free').hide();
+	});
+	$('.inscription').animate({height:"0",margin:"0",width:"0"},1000,function(){
+		$('.inscription').hide();
+	});	
+	$('.bloc').animate({width:"90%"},1500);	
+	
+})
+$('.inscription').click(function(){
+	$('.free').animate({height:"0",margin:"0"},1000,function(){
+		$('.free').hide();
+	});
+	$('.connection').animate({height:"0",margin:"0",width:"0"},1000,function(){
+		$('.connection').hide();
+	});	
+	$('.bloc').animate({width:"90%"},1500,function(){
+		$('.titleInscription').hide(500);
+		$('.formInscription').show(500);
+	});	
+	
+})
