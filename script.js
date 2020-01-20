@@ -116,7 +116,7 @@ class complementation {
 	        this.results.html(''); // On vide les résultats
 	
 	        for (var i = 0; i < responseLen ; i=i+3) {
-            	this.results.append('<div id="'+response[i+2]+'"class="completion">'+response[i]+'</div><span class="population"> population: '+response[i+1]+'</span>');
+            	this.results.append('<option id="'+response[i+2]+'"class="completion" value="'+response[i]+'">');
 	
             	
 	
@@ -124,7 +124,7 @@ class complementation {
 	        $('.completion').on('click', function(e) {
 	        		
                 	that.chooseResult(e.target);
-                	
+                	console.log(e);
                 	that.id[0].value = e.target.id;
 	            });
 	
@@ -166,7 +166,7 @@ class complementation {
 	
 };
 var complement = new complementation;
-$('.formInscription').hide();
+
 $('.free').click(function(){
 	$('.connection').animate({height:"0",margin:"0"},1000,function(){
 		$('.connection').hide();
@@ -174,7 +174,13 @@ $('.free').click(function(){
 	$('.inscription').animate({height:"0",margin:"0"},1000,function(){
 		$('.inscription').hide();
 	});
-	$('.bloc').animate({width:"90%"},1500);		
+	$('.bloc').animate({width:"90%"},1500,function(){
+		$('.titleFree').hide(500);
+		$('.meteoForm').show(500);
+		$('#results').width($('#search').width());
+	});	
+	$('.free').off('click');
+
 })
 $('.connection').click(function(){
 	$('.free').animate({height:"0",margin:"0"},1000,function(){
@@ -183,7 +189,11 @@ $('.connection').click(function(){
 	$('.inscription').animate({height:"0",margin:"0",width:"0"},1000,function(){
 		$('.inscription').hide();
 	});	
-	$('.bloc').animate({width:"90%"},1500);	
+	$('.bloc').animate({width:"90%"},1500,function(){
+		$('.titleConnection').hide(500);
+		$('.formConnection').show(500);
+	});	
+	$('.connection').off('click');
 	
 })
 $('.inscription').click(function(){
@@ -197,5 +207,5 @@ $('.inscription').click(function(){
 		$('.titleInscription').hide(500);
 		$('.formInscription').show(500);
 	});	
-	
+	$('.inscription').off('click');
 })

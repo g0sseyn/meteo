@@ -28,12 +28,18 @@
 
 	echo implode('|', $results); // Et on affiche les résultats séparés par une barre verticale |
 ?>
-<?php if ($formtown) { ?>
 <?php ob_start(); ?>
+<div class="meteoForm">
+	<p>De quel ville souhaitez-vous connaître la météo ? </p>
 <form action="index.php?action=meteo" method="post" class="meteoForm">
-	<input type="text" id="search" name="search" autocomplete="off" required>
+	<input type="text" id="search" name="search" autocomplete="off" required list="results">
+	
 	<input type="text" id="id" name="id">
-	<div id="results"></div>
+	<datalist id="results">
+		
+	</datalist>
+	<div id="resultss"></div>
 	<button type="submit">valider</button>
 </form>
-<?php $formTown = ob_get_clean();} ?>
+</div>
+<?php $formTown = ob_get_clean(); ?>

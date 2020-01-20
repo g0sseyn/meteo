@@ -11,11 +11,17 @@
 		} ?>		
 	</div>
 	<div class="bloc connection">
-		<p>déjà inscrit?</br>
+		<p class="titleConnection">déjà inscrit?</br>
 		se connecter</p>
+		<?php if (isset($formConnection)) {
+				echo $formConnection;
+		} ?>
 	</div>	
 	<div class="bloc free">
-		<p>visiter le site sans s'inscrire</p>			
+		<p class="titleFree">visiter le site sans s'inscrire</p>	
+		<?php if (isset($formTown)) {
+				echo $formTown;
+		} ?>		
 	</div>
 </div>
 <?php $form = ob_get_clean(); ?>

@@ -8,10 +8,10 @@ function isIdentify(){
 }
 function verifyPass(){
     $userManager = new UserManager();
-    $userInfo = $userManager->userInfo($_POST['pseudo']);
+    $userInfo = $userManager->userInfo($_POST['identifiant']);
     /*$isPasswordCorrect = password_verify($_POST['pass'], $userInfo['pass']);*/
    
-	if ($_POST['pass']==$userInfo['password']) { 
+	if ($_POST['password']==$userInfo['password']) { 
 	   		$_SESSION['pseudo'] = $userInfo['identifiant'];	
 	   		meteo();		
 	    }   
@@ -37,6 +37,6 @@ function validInscription(){
 	if ($affectedLines === false) {
         throw new Exception('Impossible de vous ajouter');
     }    
-
-	
+    meteo();
+    
 }

@@ -34,6 +34,15 @@ body {
 .free{
 	margin: 2em;
 }
+.meteoForm {
+	display: none;
+}
+.formConnection {
+	display: none;
+}
+.formInscription {
+	display: none;
+}
 
 #meteo {
 	border: 1px solid

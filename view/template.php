@@ -25,9 +25,6 @@
 	} ?>
 	</div>
 	<div id='form'>
-		<?php if (isset($formTown)) {
-				echo $formTown;
-		} ?>
 		<?php if (isset($form)) {
 				echo $form;
 		} ?>
