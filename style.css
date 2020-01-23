@@ -33,6 +33,7 @@ body {
 }
 .free{
 	margin: 2em;
+	position: relative;
 }
 .meteoForm {
 	display: none;
@@ -43,23 +44,26 @@ body {
 .formInscription {
 	display: none;
 }
-
+.townBtn {
+	position: absolute;
+	top: 85%;
+	left: 47%;
+}
+#resultMeteo {
+	display: none;
+}
 #meteo {
-	border: 1px solid
-	black;
+	border: 1px solid black;
 	border-radius: 10px;
-	width: 20%;
 	text-align: center;
 	color: white;
-	margin-left: 40%;
+	margin:0 5%;
 }
 #infoMeteo {
-	width: 30%;
 	text-align: center;
-	border: 1px solid
-	black;
+	border: 1px solid black;
 	border-radius: 10px;
-	margin-left: 35%;
+	margin:0 5%;
 }
 #id {
 	display: none;

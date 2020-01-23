@@ -1,6 +1,6 @@
 <?php ob_start(); ?>	
-	<div id="meteo" class=<?php if (isset($_POST['id'])) {echo($_POST['id']);}
-	else echo '3119841' ?>></div>
+<div id="resultMeteo">
+	<div id="meteo"></div>
 	<div id="infoMeteo">
 		<div id="cloud"></div>
 		<div id="temperature"></div>
@@ -13,4 +13,5 @@
 		<div id="winddeg"></div>
 		<div id="coord"></div>
 	</div>
+</div>
 <?php $meteo = ob_get_clean(); ?>

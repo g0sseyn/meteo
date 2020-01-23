@@ -30,16 +30,12 @@
 ?>
 <?php ob_start(); ?>
 <div class="meteoForm">
-	<p>De quel ville souhaitez-vous connaître la météo ? </p>
-<form action="index.php?action=meteo" method="post" class="meteoForm">
+	<p id="meteoFormTitle">De quel ville souhaitez-vous connaître la météo ? </p>
 	<input type="text" id="search" name="search" autocomplete="off" required list="results">
-	
-	<input type="text" id="id" name="id">
-	<datalist id="results">
-		
+	<datalist id="results">		
 	</datalist>
-	<div id="resultss"></div>
-	<button type="submit">valider</button>
-</form>
+	<button class="townBtn btn btn-primary">valider</button>
+
+
 </div>
 <?php $formTown = ob_get_clean(); ?>

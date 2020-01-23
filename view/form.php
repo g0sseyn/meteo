@@ -21,7 +21,10 @@
 		<p class="titleFree">visiter le site sans s'inscrire</p>	
 		<?php if (isset($formTown)) {
 				echo $formTown;
-		} ?>		
+		} ?>	
+		<?php if (isset($meteo)) {
+				echo $meteo;
+		} ?>	
 	</div>
 </div>
 <?php $form = ob_get_clean(); ?>

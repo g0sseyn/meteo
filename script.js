@@ -33,12 +33,27 @@
 */
 class Meteo {
 	constructor(){
-		this.id=$('#meteo').attr('class');
-		this.showMeteo(this.id);
-		this.showSun(this.id);
+		//this.id=$('#meteo').attr('class');
+		//this.showMeteo(this.id);
+		//this.showSun(this.id);
+		this.loc = $('#search').value;
+		this.resetMeteo();
+	}
+	resetMeteo(){
+		$('#meteo').html('');
+		$('#cloud').html('');
+		$('#temperature').html('');
+		$('#humidity').html('');
+		$('#pressure').html('');
+		$('#cloudiness').html('');
+		$('#windspeed').html('');
+		$('#winddeg').html('');
+		$('#coord').html('');
+		$('#sunrise').html('');
+		$('#sunset').html('');
 	}
 	showMeteo(id){
-		$.get('http://api.openweathermap.org/data/2.5/weather?id='+id+'&APPID=94aeaac607f35f0321198d06698d24a6',function (reponse) {
+		$.get('http://api.openweathermap.org/data/2.5/weather?q='+id+'&APPID=94aeaac607f35f0321198d06698d24a6',function (reponse) {
 			$('#meteo').append('<p> météo pour la ville de: '+reponse.name+'</p>');	
 			$('#cloud').append('<p> couverture nuageuse: '+reponse.clouds.all+'</p>');	
 			$('#temperature').append('<p> temperature moyenne: '+Math.round((reponse.main.temp-273.15)*10)/10+'°C</p><p> temperature minimum: '
@@ -48,13 +63,15 @@ class Meteo {
 			$('#humidity').append("<p> taux d'humidité: "+reponse.main.humidity+"</p>");
 			$('#pressure').append('<p> pression atmosphérique: '+reponse.main.pressure+'</p>');
 			$('#cloudiness').append('<p> description général: '+reponse.weather[0].description+'</p>');
-			$('#windspeed').append('<p> vitesse du vent: '+reponse.wind.speed+'</p>');
+			$('#windspeed').append('<p> vitesse du vent: '+(Math.round(reponse.wind.speed*3600/1000))+'km/h</p>');
 			$('#winddeg').append('<p> orientation du vent: '+reponse.wind.deg+'</p>');
 			$('#coord').append('<p> latitude: '+reponse.coord.lat+'</p><p> longitude: '+reponse.coord.lon);
+		}).fail(function(){
+			alert('erreur');
 		});
 	}
 	showSun(id){
-		$.get('http://api.openweathermap.org/data/2.5/weather?id='+id+'&APPID=94aeaac607f35f0321198d06698d24a6',function (reponse) {
+		$.get('http://api.openweathermap.org/data/2.5/weather?q='+id+'&APPID=94aeaac607f35f0321198d06698d24a6',function (reponse) {
 			var sunrisehour = new Date(reponse.sys.sunrise*1000).getHours();
 			var sunriseminute = new Date(reponse.sys.sunrise*1000).getMinutes();
 			var sunsethour = new Date(reponse.sys.sunset*1000).getHours();
@@ -106,7 +123,7 @@ class complementation {
 	}	
 	displayResults(response) { // Affiche les résultats d'une requête
 	
-    	this.results[0].style.display = response.length ? 'block' : 'none'; // On cache le conteneur si on n'a pas de résultats
+    	 // On cache le conteneur si on n'a pas de résultats
 		var that=this;
 	    if (response.length) { // On ne modifie les résultats que si on en a obtenu
 	
@@ -180,8 +197,8 @@ $('.free').click(function(){
 		$('#results').width($('#search').width());
 	});	
 	$('.free').off('click');
-
 })
+
 $('.connection').click(function(){
 	$('.free').animate({height:"0",margin:"0"},1000,function(){
 		$('.free').hide();
@@ -194,8 +211,8 @@ $('.connection').click(function(){
 		$('.formConnection').show(500);
 	});	
 	$('.connection').off('click');
-	
 })
+
 $('.inscription').click(function(){
 	$('.free').animate({height:"0",margin:"0"},1000,function(){
 		$('.free').hide();
@@ -209,3 +226,42 @@ $('.inscription').click(function(){
 	});	
 	$('.inscription').off('click');
 })
+
+$('.townBtn').click(function(){
+	var meteo = new Meteo;
+	meteo.showMeteo($('#search')[0].value);
+	meteo.showSun($('#search')[0].value);
+	$('#resultMeteo').hide(500);
+	$('#resultMeteo').show(1000,function(){
+		var heightresult = ($('#resultMeteo').height()+4+$('.meteoForm').height()+4);
+		$('.bloc').animate({height:(heightresult)},500);
+		$('#meteoFormTitle').html('une autre ville ?');
+		$('.townBtn').css('position','relative');
+		$('.townBtn').animate({top:'-7%',left:'-0%'},500);
+	});
+});
+
+function getResults() {		
+	    var xhr = new XMLHttpRequest();
+	    var mail = $('#inputEmail')[0].value;
+	    xhr.open('GET', 'index.php?mail='+ mail);	
+        xhr.addEventListener('readystatechange', function() {
+        	if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+	
+	            displayResults(xhr.responseText);
+	
+        	}
+	    });
+	  
+	
+	    xhr.send(null);
+	    return xhr;	
+	}
+$('.formInscriptionBtn').click(function(){
+	getResults();
+});
+function displayResults(response) { // Affiche les résultats d'une requête
+	
+    	console.log(response);
+	
+	}

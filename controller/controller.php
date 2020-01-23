@@ -8,7 +8,7 @@ function showForm(){
 }
 
 function showHome(){
-	$formtown = false;
+	require('view/meteo.php');
 	require('view/connection.php');
 	require('view/formInscription.php');		
 	require('view/formTown.php');	
@@ -25,7 +25,6 @@ function connection(){
 	require('view/template.php');
 }
 function meteo(){
-	$formtown = true;
 	require('view/formTown.php');
 	require('view/meteo.php');
 	require('view/template.php');

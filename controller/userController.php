@@ -25,7 +25,6 @@ function deco(){
     header('Location: index.php');
 }
 function validInscription(){
-
 	if (empty($_POST['inputEmail'])||empty($_POST['inputPassword'])) {
 		throw new Exception('Tous les champs ne sont pas remplis !');		
 	}
@@ -37,6 +36,12 @@ function validInscription(){
 	if ($affectedLines === false) {
         throw new Exception('Impossible de vous ajouter');
     }    
-    meteo();
-    
+    meteo();    
+}
+function validMail($email){
+	$userManager = new UserManager();	
+	if ($userManager->verifyMail($email)) {
+		return false;	
+	}
+	else true;
 }

@@ -16,8 +16,6 @@ try {
 			connection();
 		}else if ($_GET['action']=='meteo'){
 			meteo();
-		}else if (isset($_GET['s'])){
-			require('view/test.php');
 		}else if ($_GET['action']=='free'){
 			meteo();
 		}else if ($_GET['action']=='validInscription'){
