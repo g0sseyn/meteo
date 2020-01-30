@@ -1,7 +1,7 @@
 <?php
 session_start();
-require('controller/controller.php');
-require('controller/userController.php');
+require_once('e:/wamp64/www/meteo/controller/controller.php');
+require_once('e:/wamp64/www/meteo/controller/userController.php');
 try {
 	if (isset($_GET['action'])) {   
 		if ($_GET['action'] == 'home') {
@@ -20,9 +20,8 @@ try {
 			meteo();
 		}else if ($_GET['action']=='validInscription'){
 			validInscription();
-		}	
-	}
-	
+		}
+	}	
 	else {
 	    showHome();	   
 	}

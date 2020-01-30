@@ -1,5 +1,5 @@
 <?php
-require_once('model/Manager.php');
+require_once('e:/wamp64/www/meteo/model/Manager.php');
 class UserManager extends Manager
 {
 	public function userInfo($email){

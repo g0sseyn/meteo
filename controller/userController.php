@@ -1,12 +1,26 @@
 <?php
-require_once('model/UserManager.php');
+require_once('e:/wamp64/www/meteo/model/UserManager.php');
 function isIdentify(){
-    if (isset($_SESSION['pseudo'])){
+    if (isset($_SESSION['id'])){
         return true;
     }
     return false;
 }
 function verifyPass(){
+    $userManager = new UserManager();
+    $userInfo = $userManager->userInfo($_POST['email']);
+    /*$isPasswordCorrect = password_verify($_POST['pass'], $userInfo['pass']);*/
+   
+	if ($_POST['password']==$userInfo['password']) { 
+	   		$_SESSION['id'] = $userInfo['mail'];	
+	   		return 'ok';		
+	    }   
+	           
+	else {
+	    	return 'false';
+	}
+}
+function verifyPassOld(){
     $userManager = new UserManager();
     $userInfo = $userManager->userInfo($_POST['identifiant']);
     /*$isPasswordCorrect = password_verify($_POST['pass'], $userInfo['pass']);*/
@@ -38,10 +52,18 @@ function validInscription(){
     }    
     meteo();    
 }
-function validMail($email){
+function validMail($email,$pass){
+	if (!preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#i", $email)){
+        return 'mail non valide';
+    }
 	$userManager = new UserManager();	
 	if ($userManager->verifyMail($email)) {
-		return false;	
+		return 'mail existant';	
 	}
-	else true;
+	$affectedLines = $userManager->addUser($email,$pass); 
+	if ($affectedLines === false) {
+        return 'Impossible de vous ajouter';
+    } 
+    $_SESSION['id'] = $email;
+    return 'ok';	
 }

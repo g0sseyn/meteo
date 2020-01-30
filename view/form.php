@@ -1,8 +1,5 @@
-<?php $nav=false ?>
-
-
 <?php ob_start(); ?>
-
+<div id='form'>
 <div class="blocForm">
 	<div class="bloc inscription">
 		<p class="titleInscription"> s'inscrire</p>
@@ -26,5 +23,6 @@
 				echo $meteo;
 		} ?>	
 	</div>
+</div>
 </div>
 <?php $form = ob_get_clean(); ?>

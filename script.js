@@ -53,7 +53,7 @@ class Meteo {
 		$('#sunset').html('');
 	}
 	showMeteo(id){
-		$.get('http://api.openweathermap.org/data/2.5/weather?q='+id+'&APPID=94aeaac607f35f0321198d06698d24a6',function (reponse) {
+		$.get('http://api.openweathermap.org/data/2.5/weather?q='+id+'&lang=fr&APPID=94aeaac607f35f0321198d06698d24a6',function (reponse) {
 			$('#meteo').append('<p> météo pour la ville de: '+reponse.name+'</p>');	
 			$('#cloud').append('<p> couverture nuageuse: '+reponse.clouds.all+'</p>');	
 			$('#temperature').append('<p> temperature moyenne: '+Math.round((reponse.main.temp-273.15)*10)/10+'°C</p><p> temperature minimum: '
@@ -71,7 +71,7 @@ class Meteo {
 		});
 	}
 	showSun(id){
-		$.get('http://api.openweathermap.org/data/2.5/weather?q='+id+'&APPID=94aeaac607f35f0321198d06698d24a6',function (reponse) {
+		$.get('http://api.openweathermap.org/data/2.5/weather?q='+id+'&lang=fr&APPID=94aeaac607f35f0321198d06698d24a6',function (reponse) {
 			var sunrisehour = new Date(reponse.sys.sunrise*1000).getHours();
 			var sunriseminute = new Date(reponse.sys.sunrise*1000).getMinutes();
 			var sunsethour = new Date(reponse.sys.sunset*1000).getHours();
@@ -106,7 +106,7 @@ class complementation {
 		var that=this;
 		
 	    var xhr = new XMLHttpRequest();
-	    xhr.open('GET', 'index.php?s='+ encodeURIComponent(keywords));
+	    xhr.open('GET', 'controller/ajaxTraitment.php?s='+ encodeURIComponent(keywords));
 	
     	xhr.addEventListener('readystatechange', function() {
         	if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
@@ -206,7 +206,7 @@ $('.connection').click(function(){
 	$('.inscription').animate({height:"0",margin:"0",width:"0"},1000,function(){
 		$('.inscription').hide();
 	});	
-	$('.bloc').animate({width:"90%"},1500,function(){
+	$('.connection').animate({width:"90%"},1500,function(){
 		$('.titleConnection').hide(500);
 		$('.formConnection').show(500);
 	});	
@@ -220,7 +220,7 @@ $('.inscription').click(function(){
 	$('.connection').animate({height:"0",margin:"0",width:"0"},1000,function(){
 		$('.connection').hide();
 	});	
-	$('.bloc').animate({width:"90%"},1500,function(){
+	$('.inscription').animate({width:"90%"},1500,function(){
 		$('.titleInscription').hide(500);
 		$('.formInscription').show(500);
 	});	
@@ -244,7 +244,7 @@ $('.townBtn').click(function(){
 function getResults() {		
 	    var xhr = new XMLHttpRequest();
 	    var mail = $('#inputEmail')[0].value;
-	    xhr.open('GET', 'index.php?mail='+ mail);	
+	    xhr.open('POST', 'controller/ajaxTraitment.php?mail='+ mail);	
         xhr.addEventListener('readystatechange', function() {
         	if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
 	
@@ -257,11 +257,47 @@ function getResults() {
 	    xhr.send(null);
 	    return xhr;	
 	}
-$('.formInscriptionBtn').click(function(){
-	getResults();
-});
 function displayResults(response) { // Affiche les résultats d'une requête
 	
     	console.log(response);
 	
 	}
+/*$('.formInscriptionBtn').click(function clickbtn(){
+	var mail=$('#inputEmail').val();
+	var pass=$('#inputPassword').val();
+	console.log('click');
+	$('.inscription').load('view/formInscription.php',{ mail:mail, pass:pass},function(){
+		$('.formInscription').show();
+		$('.formInscriptionBtn').click(clickbtn);
+	});
+});*/
+$('.formInscriptionBtn').click(function(){
+	$('#error').html('');
+	var mail=$('#inputEmail').val();
+	var pass=$('#inputPassword').val();	
+	var response=$.post('controller/ajaxTraitment.php', { mail:mail,pass:pass},function(data) {
+     if (response.responseText=='mail existant') {
+     	$('#error').html('<small id=\'connect\'>mail existant,voulez-vous vous connectez ?</small><script type="text/javascript">$(\'#connect\').click(function(){$(\'.free\').animate({height:"0",margin:"0"},1000,function(){$(\'.free\').hide();});$(\'.inscription\').animate({height:"0",margin:"0",width:"0"},1000,function(){$(\'.inscription\').hide();});$(\'.connection\').show().animate({width:"90%",height:"400px",margin:"2em"},1500,function(){$(\'.titleConnection\').hide(500);$(\'.formConnection\').show(500);});$(\'.connection\').off(\'click\');})</script>')
+     }else if (response.responseText=='Impossible de vous ajouter') {
+     	$('#error').html('<small>impossible de vous ajouter</small>')
+     }else if (response.responseText=='mail non valide'){
+     	$('#error').html('<small>mail non valide</small>');
+     }else if (response.responseText=='ok'){
+     	window.location.href = 'index.php?action=meteo';
+     }
+   },'text');	
+})
+$('.formConnectionBtn').click(function(){
+	$('#errorConnection').html('');
+	var mail=$('#email').val();
+	var pass=$('#password').val();	
+	var response=$.post('controller/ajaxTraitment.php', { email:mail,password:pass},function(data) {
+		console.log(response.responseText);
+     if (response.responseText=='ok') {
+     	window.location.href = 'index.php?action=meteo'
+     }else {
+     	$('#errorConnection').html('<small>Mauvais identifiant ou mot de passe !</small>');
+     }
+   },'text');	
+})
+
