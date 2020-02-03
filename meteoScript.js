@@ -6,7 +6,6 @@ class ApiCall {
 		})
 		$.get('http://api.openweathermap.org/data/2.5/forecast?q=gap&lang=fr&APPID=94aeaac607f35f0321198d06698d24a6',data=>{
 			this.responseFiveDays = data;
-			console.log(this.responseFiveDays);
 			meteo = new MeteoCompleteFiveDays ;
 		})
 	}
@@ -14,9 +13,77 @@ class ApiCall {
 apiCall = new ApiCall;
 class MeteoCompleteFiveDays {
 	constructor(){		
-		this.loc = $('#meteoDiv');
 		this.response=apiCall.responseFiveDays;
 		$('.today').on('click',this.show.bind(this));
+		$('#day0').on('click',this.show.bind(this));
+		this.calcHour();
+		$('#day1').on('click',this.showDay1.bind(this));
+		$('#day2').on('click',this.showDay2.bind(this));
+		$('#day3').on('click',this.showDay3.bind(this));
+		$('#day4').on('click',this.showDay4.bind(this));
+		$('#day5').on('click',this.showDay5.bind(this));		
+	}
+	showDay1(){		
+		meteo = new MeteoComplete;
+		meteo.response= [this.response.list[8-this.decalage-4],this.response.list[8-this.decalage-3],this.response.list[8-this.decalage-2],this.response.list[8-this.decalage-1],this.response.list[8-this.decalage],this.response.list[8-this.decalage+1],this.response.list[8-this.decalage+2],this.response.list[8-this.decalage+3]];		
+		meteo.show();		
+	}
+	showDay2(){		
+		meteo = new MeteoComplete;
+		meteo.response= [this.response.list[16-this.decalage-4],this.response.list[16-this.decalage-3],this.response.list[16-this.decalage-2],this.response.list[16-this.decalage-1],this.response.list[16-this.decalage],this.response.list[16-this.decalage+1],this.response.list[16-this.decalage+2],this.response.list[16-this.decalage+3]];
+		meteo.show();		
+	}
+	showDay3(){		
+		meteo = new MeteoComplete;
+		meteo.response= [this.response.list[24-this.decalage-4],this.response.list[42-this.decalage-3],this.response.list[24-this.decalage-2],this.response.list[24-this.decalage-1],this.response.list[24-this.decalage],this.response.list[24-this.decalage+1],this.response.list[24-this.decalage+2],this.response.list[24-this.decalage+3]];
+		meteo.show();		
+	}
+	showDay4(){		
+		meteo = new MeteoComplete;
+		meteo.response= [this.response.list[32-this.decalage-4],this.response.list[32-this.decalage-3],this.response.list[32-this.decalage-2],this.response.list[32-this.decalage-1],this.response.list[32-this.decalage],this.response.list[32-this.decalage+1],this.response.list[32-this.decalage+2],this.response.list[32-this.decalage+3]];
+		meteo.show();		
+	}
+	showDay5(){
+		if (this.decalage==0) {		
+			meteo = new MeteoComplete;
+			meteo.response= [this.response.list[39-this.decalage-7],this.response.list[39-this.decalage-6],this.response.list[39-this.decalage-5],this.response.list[39-this.decalage-4],this.response.list[39-this.decalage-3],this.response.list[39-this.decalage-2],this.response.list[39-this.decalage-1],this.response.list[39-this.decalage+0]];
+			meteo.show();	
+		}else {
+			meteo = new MeteoComplete;
+			var decalage2=40-this.decalage
+			meteo.response= [this.response.list[32],this.response.list[33],this.response.list[34],this.response.list[35],this.response.list[36],this.response.list[37],this.response.list[38],this.response.list[39]];
+			meteo.show();
+		}
+	}
+	calcHour(){
+		var date = new Date(this.response.list[0].dt*1000);
+		var hour = date.getHours();
+		switch (hour){
+			case 13 :
+			this.decalage=0;
+			break;
+			case 16 :
+			this.decalage=1;
+			break;
+			case 19 :
+			this.decalage=2;
+			break;
+			case 22 :
+			this.decalage=3;
+			break;
+			case 1 :
+			this.decalage=4;
+			break;
+			case 4 :
+			this.decalage=5;
+			break;
+			case 7 :
+			this.decalage=6;
+			break;
+			case 10 :
+			this.decalage=7;
+			break;
+		}
 	}
 	resetMeteo(){
 		$('#meteoDiv').html('');
@@ -46,17 +113,35 @@ class MeteoCompleteFiveDays {
 	}
 	showBlocInfo(){
 		$('#blocInfo').show();
-		$('#rain').html('0');		
+		if (this.response.list[0].hasOwnProperty("rain")) {
+			if (this.response.list[0].rain.hasOwnProperty("1h")) {
+				$('#rain').html(this.response.list[0].rain["1h"]);
+			}else $('#rain').html(this.response.list[0].rain["3h"]);
+		}else $('#rain').html('0');		
 		$('#humidity').html(this.response.list[0].main.humidity);
 		$('#wind').html(Math.round(this.response.list[0].wind.speed*3600/1000));
 	}
-	showNextMeteo(){
+	showNextMeteoIcon(){
 		$('#day0').attr('src','http://openweathermap.org/img/wn/'+this.response.list[0].weather[0].icon+'@2x.png');	
-		$('#day1').attr('src','http://openweathermap.org/img/wn/'+this.response.list[8].weather[0].icon+'@2x.png');	
-		$('#day2').attr('src','http://openweathermap.org/img/wn/'+this.response.list[16].weather[0].icon+'@2x.png');
-		$('#day3').attr('src','http://openweathermap.org/img/wn/'+this.response.list[24].weather[0].icon+'@2x.png');
-		$('#day4').attr('src','http://openweathermap.org/img/wn/'+this.response.list[32].weather[0].icon+'@2x.png');
-		$('#day5').attr('src','http://openweathermap.org/img/wn/'+this.response.list[39].weather[0].icon+'@2x.png');
+		$('#day1').attr('src','http://openweathermap.org/img/wn/'+this.response.list[8-this.decalage].weather[0].icon+'@2x.png');	
+		$('#day2').attr('src','http://openweathermap.org/img/wn/'+this.response.list[16-this.decalage].weather[0].icon+'@2x.png');
+		$('#day3').attr('src','http://openweathermap.org/img/wn/'+this.response.list[24-this.decalage].weather[0].icon+'@2x.png');
+		$('#day4').attr('src','http://openweathermap.org/img/wn/'+this.response.list[32-this.decalage].weather[0].icon+'@2x.png');
+		$('#day5').attr('src','http://openweathermap.org/img/wn/'+this.response.list[39-this.decalage].weather[0].icon+'@2x.png');
+	}
+	showNextTemp(){
+		$('#weekTemp0').html(Math.round(this.response.list[0].main.temp_max-273.15)+' ° ');
+		$('#weekTempMin0').html(Math.round(this.response.list[0].main.temp_min-273.15)+' °');
+		$('#weekTemp1').html(Math.round(this.response.list[8-this.decalage].main.temp_max-273.15)+' ° ');
+		$('#weekTempMin1').html(Math.round(this.response.list[8-this.decalage].main.temp_min-273.15)+' °');
+		$('#weekTemp2').html(Math.round(this.response.list[16-this.decalage].main.temp_max-273.15)+' ° ');
+		$('#weekTempMin2').html(Math.round(this.response.list[16-this.decalage].main.temp_min-273.15)+' °');
+		$('#weekTemp3').html(Math.round(this.response.list[24-this.decalage].main.temp_max-273.15)+' ° ');
+		$('#weekTempMin3').html(Math.round(this.response.list[24-this.decalage].main.temp_min-273.15)+' °');
+		$('#weekTemp4').html(Math.round(this.response.list[32-this.decalage].main.temp_max-273.15)+' ° ');
+		$('#weekTempMin4').html(Math.round(this.response.list[32-this.decalage].main.temp_min-273.15)+' °');
+		$('#weekTemp5').html(Math.round(this.response.list[39-this.decalage].main.temp_max-273.15)+' ° ');
+		$('#weekTempMin5').html(Math.round(this.response.list[39-this.decalage].main.temp_min-273.15)+' °');		
 	}
 	showWeekDay(){
 		var date = new Date();
@@ -73,16 +158,92 @@ class MeteoCompleteFiveDays {
 		this.showWeatherDescription();
 		this.showTemperature();
 		this.showBlocInfo();
-		this.showNextMeteo();	
+		this.showNextMeteoIcon();	
 		this.showWeekDay();
+		this.showNextTemp();
+		this.showTempGraph();
+	}
+	showTempGraph(){
+		google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        var that=this;
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Heure');        
+		data.addColumn('number', 'Temperature');
+		data.addColumn({type:'number', role:'annotation'});
+		var formatter = new google.visualization.DateFormat({pattern: "HH:mm"});
+		for (var i =0; i < 8; i++) {
+			data.addRows([[formatter.formatValue(new Date(that.response.list[i].dt*1000)),(Math.round((that.response.list[i].main.temp)*10)/10),(Math.round((that.response.list[i].main.temp-273.15)*10)/10)]]);
+		}
+
+        var options = {
+        	axisTitlesPosition:'none',
+        	chartArea:{width:'95%'},
+        	colors:['orange'],
+        	vAxis:{gridlines:{count:0},textPosition:'none'},
+        	hAxis:{gridlines:{count:0}},
+        	legend:{maxLines:8},
+        	tooltip:{trigger:'none'},
+        	showRowNumber: true,
+        	annotations:{
+        		textStyle: {
+        		color: 'grey',
+        		fontSize: 15,
+    		 },    		 
+     		alwaysOutside: true,
+     		stemColor : 'none',
+     		focusTarget:'category'}
+       	};
+           
+        var chart = new google.visualization.AreaChart($('#chart_div')[0]);        
+        chart.draw(data, options);
+      }
 	}
 }
+
 class MeteoComplete {
 	constructor(){		
-		this.loc = $('#meteoDiv');
-		this.response=apiCall.responseNow;
-		$('.today').on('click',this.show.bind(this));
+		this.response;
 	}
+	showTempGraph(){
+		google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        var that=this;
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Heure');        
+		data.addColumn('number', 'Temperature');
+		data.addColumn({type:'number', role:'annotation'});
+		var formatter = new google.visualization.DateFormat({pattern: "HH:mm"});
+		for (var i =0; i < 8; i++) {
+			var temp = Math.round((that.response[i].main.temp)*10)/10;
+			data.addRows([[formatter.formatValue(new Date(that.response[i].dt*1000)),temp,Math.round((that.response[i].main.temp-273.15)*10)/10]]);
+		}
+
+        var options = {
+        	axisTitlesPosition:'none',
+        	chartArea:{width:'95%'},
+        	colors:['orange'],
+        	vAxis:{gridlines:{count:0},textPosition:'none'},
+        	hAxis:{gridlines:{count:0}},
+        	legend:{maxLines:8},
+        	tooltip:{trigger:'none'},
+        	showRowNumber: true,
+        	annotations:{
+        		textStyle: {
+        		color: 'grey',
+        		fontSize: 15,
+    		 },    		 
+     		alwaysOutside: true,
+     		stemColor : 'none',
+     		focusTarget:'category'}
+       		 };
+           
+        var chart = new google.visualization.AreaChart($('#chart_div')[0]);        
+        chart.draw(data, options);
+      }
+  	}
 	resetMeteo(){
 		$('#meteoDiv').html('');
 	}
@@ -90,41 +251,43 @@ class MeteoComplete {
 		$('#loc').show().html(this.response.name);
 	}
 	showIcon(){
-		$('#icon').attr('src','http://openweathermap.org/img/wn/'+this.response.weather[0].icon+'@2x.png');
+		$('#icon').attr('src','http://openweathermap.org/img/wn/'+this.response[4].weather[0].icon+'@2x.png');
 	}
 	showDay(){
-		var date = new Date();
+		var date = new Date(this.response[4].dt*1000);
 		var hour = date.getHours();
 		if (hour<10) {
 			hour='0'+hour;
 		}
+
 		var day=date.getDay();
 		var dayName=new Array('dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi');
 		$('#day').html(dayName[day]+' : '+hour+'H00');
 	}
 	showWeatherDescription(){
-		$('#weatherDescription').html(this.response.weather[0].description);
+		$('#weatherDescription').html(this.response[4].weather[0].description);
 	}
 	showTemperature(){
 		$('#temperatureUnit').show();
-		$('#temperatureValue').html(Math.round((this.response.main.temp-273.15)*10)/10)
+		$('#temperatureValue').html(Math.round((this.response[4].main.temp-273.15)*10)/10)
 	}
 	showBlocInfo(){
 		$('#blocInfo').show();
-		if (!this.response.rain) {
-			$('#rain').html('0');
-		}else {
-		$('#rain').html(this.response.rain);
-		}
-		$('#humidity').html(this.response.main.humidity);
-		$('#wind').html(Math.round(this.response.wind.speed*3600/1000));
-	}
+		if (this.response[4].hasOwnProperty("rain")) {
+			if (this.response[4].rain.hasOwnProperty("1h")) {
+				$('#rain').html(this.response[4].rain["1h"]);
+			}else $('#rain').html(this.response[4].rain["3h"]);
+		}else $('#rain').html('0');		
+		$('#humidity').html(this.response[4].main.humidity);
+		$('#wind').html(Math.round(this.response[4].wind.speed*3600/1000));
+	}	
 	show(){
 		this.showloc();
 		this.showIcon();
 		this.showDay();
 		this.showWeatherDescription();
 		this.showTemperature();
-		this.showBlocInfo();		
+		this.showBlocInfo();
+		this.showTempGraph();		
 	}
 }
