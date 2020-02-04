@@ -83,11 +83,6 @@
 			<img id="day4" src="" ></i>
 			<p class="weekTemp"><span id="weekTemp4" ></span><span id="weekTempMin4" class="weekTempMin"></span></p>
 		</div>
-		<div class="day day5">
-			<p id="weekDay5">.</p>
-			<img id="day5" src="" ></i>
-			<p class="weekTemp"><span id="weekTemp5" ></span><span id="weekTempMin5" class="weekTempMin"></span></p>
-		</div>
 	</div>
 </div>
 <?php $meteoComplete = ob_get_clean(); ?>
