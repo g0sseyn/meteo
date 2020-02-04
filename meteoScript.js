@@ -21,8 +21,10 @@ class MeteoCompleteFiveDays {
 		$('#day1').on('click',this.showDay1.bind(this));
 		$('#day2').on('click',this.showDay2.bind(this));
 		$('#day3').on('click',this.showDay3.bind(this));
-		$('#day4').on('click',this.showDay4.bind(this));
-		$('#day5').on('click',this.showDay5.bind(this));		
+		$('#day4').on('click',this.showDay4.bind(this));		
+		$('#tempGraph').on('click',this.showTempGraph.bind(this));
+		$('#rainGraph').on('click',this.showRainGraph.bind(this));	
+		$('#windGraph').on('click',this.showWindGraph.bind(this));	
 	}
 	showDay1(){		
 		meteo = new MeteoComplete;
@@ -147,50 +149,185 @@ class MeteoCompleteFiveDays {
 		this.showNextMeteoIcon();	
 		this.showWeekDay();
 		this.showNextTemp();
-		this.showTempGraph();
+		this.showWindGraph();
+	}
+	showWindGraph(){
+		google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        var that=this;
+        function drawChart() {
+	        var data = new google.visualization.DataTable();
+	        data.addColumn('string', 'Heure');        
+			data.addColumn('number', 'Temperature');
+			data.addColumn({type:'number', role:'annotation'});
+			var formatter = new google.visualization.DateFormat({pattern: "HH:mm"});
+			for (var i =0; i < 8; i++) {
+				data.addRows([[formatter.formatValue(new Date(that.response.list[i].dt*1000)),100,Math.round(that.response.list[i].wind.speed*3600/1000)]]);
+			}
+
+        var options = {
+        	axisTitlesPosition:'none',
+        	chartArea:{width:'95%'},
+        	colors:['none'],
+        	vAxis:{gridlines:{count:0},textPosition:'none',baselineColor:'transparent'},
+        	hAxis:{gridlines:{count:0}},
+        	legend:{maxLines:8},
+        	tooltip:{trigger:'none'},
+        	showRowNumber: true,
+        	enableInteractivity:false,
+        	annotations:{
+        		textStyle: {
+        			color: 'grey',
+        			fontSize: 15,
+    		 	},
+    		 	alwaysOutside: true,
+    		 	stemColor : 'none',
+     			focusTarget:'category'
+    		},     		
+       	};
+           
+        var chart = new google.visualization.AreaChart($('#chart_div')[0]); 
+
+        google.visualization.events.addListener(chart, 'ready', function () {
+   			var layout = chart.getChartLayoutInterface();
+   			var xPos = -10;
+    		for (var i = 0; i < data.getNumberOfRows(); i++) {  			
+       			var arrow = $('#chart_div')[0].appendChild(document.createElement('img'));
+        		arrow.src = '/smallarrow.png';
+       			arrow.className = 'arrow';
+       			arrow.id = 'arrow'+i;
+				arrow.style.top = (50) + 'px';
+				arrow.style.left = (xPos) + 'px';
+				$('#arrow'+i).css({'transform' : 'rotate('+(that.response.list[i].wind.deg+90)+'deg)'});
+				xPos+=77;
+      			
+    		}
+ 		});      
+
+        chart.draw(data, options);
+      }
 	}
 	showTempGraph(){
 		google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
         var that=this;
-      function drawChart() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Heure');        
-		data.addColumn('number', 'Temperature');
-		data.addColumn({type:'number', role:'annotation'});
-		var formatter = new google.visualization.DateFormat({pattern: "HH:mm"});
-		for (var i =0; i < 8; i++) {
-			data.addRows([[formatter.formatValue(new Date(that.response.list[i].dt*1000)),(Math.round((that.response.list[i].main.temp)*10)/10),(Math.round((that.response.list[i].main.temp-273.15)*10)/10)]]);
-		}
+        function drawChart() {
+	        var data = new google.visualization.DataTable();
+	        data.addColumn('string', 'Heure');        
+			data.addColumn('number', 'Temperature');
+			data.addColumn({type:'number', role:'annotation'});
+			var formatter = new google.visualization.DateFormat({pattern: "HH:mm"});
+			for (var i =0; i < 8; i++) {
+				data.addRows([[formatter.formatValue(new Date(that.response.list[i].dt*1000)),(Math.round((that.response.list[i].main.temp)*10)/10),(Math.round((that.response.list[i].main.temp-273.15)*10)/10)]]);
+			}
 
         var options = {
         	axisTitlesPosition:'none',
         	chartArea:{width:'95%'},
         	colors:['orange'],
-        	vAxis:{gridlines:{count:0},textPosition:'none'},
+        	vAxis:{gridlines:{count:0},textPosition:'none',baselineColor:'transparent'},
         	hAxis:{gridlines:{count:0}},
         	legend:{maxLines:8},
         	tooltip:{trigger:'none'},
         	showRowNumber: true,
+        	enableInteractivity:false,
         	annotations:{
         		textStyle: {
-        		color: 'grey',
-        		fontSize: 15,
-    		 },    		 
-     		alwaysOutside: true,
-     		stemColor : 'none',
-     		focusTarget:'category'}
+        			color: 'grey',
+        			fontSize: 15,
+    		 	},
+    		 	alwaysOutside: true,
+    		 	stemColor : 'none',
+     			focusTarget:'category'
+    		},     		
        	};
            
         var chart = new google.visualization.AreaChart($('#chart_div')[0]);        
         chart.draw(data, options);
       }
 	}
+	showRainGraph(){
+		google.charts.load("current", {packages:["corechart"]});
+    	google.charts.setOnLoadCallback(drawChart);
+    	var that=this;
+    	function drawChart() {
+    		var data = new google.visualization.DataTable();
+      		data.addColumn('string', 'Heure');        
+			data.addColumn('number', 'Précipitations');
+			data.addColumn({type:'number', role:'annotation'});
+			var formatter = new google.visualization.DateFormat({pattern: "HH:mm"});
+			for (var i =0; i < 8; i++) {
+				if (that.response.list[i].hasOwnProperty("rain")) {
+					data.addRows([[formatter.formatValue(new Date(that.response.list[i].dt*1000)),that.response.list[i].rain['3h'],that.response.list[i].rain['3h']]]);
+				}else {
+					data.addRows([[formatter.formatValue(new Date(that.response.list[i].dt*1000)),0,0]]);
+				}
+			}
+			var options = {
+				axisTitlesPosition:'none',
+        		chartArea:{width:'95%'},
+        		enableInteractivity:false,
+				orientation:'horizontal',
+				vAxis:{gridlines:{count:0},textPosition:'none',baselineColor:'transparent'},
+        		hAxis:{gridlines:{count:0}},				
+				annotations:{
+	        		textStyle: {
+	        			color: 'blue',
+	        			fontSize: 15,
+	        		},	        		
+					alwaysOutside: true,
+					stemColor : 'none',
+    		 	},
+			}
+			var chart = new google.visualization.BarChart($('#chart_div')[0]);        
+        	chart.draw(data, options);
+
+		}
+	}
 }
 
 class MeteoComplete {
 	constructor(){		
 		this.response;
+		$('#tempGraph').off('click').on('click',this.showTempGraph.bind(this));	
+		$('#rainGraph').off('click').on('click',this.showRainGraph.bind(this));	
+	}
+	showRainGraph(){
+		google.charts.load("current", {packages:["corechart"]});
+    	google.charts.setOnLoadCallback(drawChart);
+    	var that=this;
+    	function drawChart() {
+    		var data = new google.visualization.DataTable();
+      		data.addColumn('string', 'Heure');        
+			data.addColumn('number', 'Précipitations');
+			data.addColumn({type:'number', role:'annotation'});
+			var formatter = new google.visualization.DateFormat({pattern: "HH:mm"});
+			for (var i =0; i < 8; i++) {
+				if (that.response[i].hasOwnProperty("rain")) {
+					data.addRows([[formatter.formatValue(new Date(that.response[i].dt*1000)),that.response[i].rain['3h'],that.response[i].rain['3h']]]);
+				}else {
+					data.addRows([[formatter.formatValue(new Date(that.response[i].dt*1000)),0,0]]);
+				}
+			}
+			var options = {
+				axisTitlesPosition:'none',
+        		chartArea:{width:'95%'},
+				orientation:'horizontal',
+				vAxis:{gridlines:{count:0},textPosition:'none'},
+        		hAxis:{gridlines:{count:0}},				
+				annotations:{
+	        		textStyle: {
+	        			color: 'blue',
+	        			fontSize: 15,
+	        		},	        		
+					alwaysOutside: true,
+					stemColor : 'none',
+    		 	},
+			}
+			var chart = new google.visualization.BarChart($('#chart_div')[0]);        
+        	chart.draw(data, options);
+
+		}
 	}
 	showTempGraph(){
 		google.charts.load('current', {'packages':['corechart']});
@@ -267,7 +404,6 @@ class MeteoComplete {
 		$('#wind').html(Math.round(this.response[4].wind.speed*3600/1000));
 	}	
 	show(){
-		console.log(this.response);
 		this.showloc();
 		this.showIcon();
 		this.showDay();

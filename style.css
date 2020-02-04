@@ -169,3 +169,7 @@ body {
 	position:relative;
 	top: 33%;
 }
+.arrow {
+  border: none;
+  position: absolute;
+}

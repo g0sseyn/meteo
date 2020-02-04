@@ -47,9 +47,9 @@
 			<div>Humidité : <span id="humidity"></span>%</div>
 			<div>Vent : <span id="wind"></span> km/h</div>
 			<div id="blocInfoBtn">
-				<div class="btn btn-primary">température</div>
-				<div class="btn btn-primary">Précipitations</div>
-				<div class="btn btn-primary">Vent</div>
+				<div class="btn btn-primary" id="tempGraph">température</div>
+				<div class="btn btn-primary" id="rainGraph">Précipitations</div>
+				<div class="btn btn-primary" id="windGraph">Vent</div>
 			</div>
 
 		</div>		
