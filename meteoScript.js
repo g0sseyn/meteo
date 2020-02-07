@@ -1,3 +1,26 @@
+var lat;
+var lon;
+var geo_options = {
+  enableHighAccuracy: true, 
+  maximumAge        : 30000, 
+  timeout           : 27000
+};
+function errorHandler(err) {
+            if(err.code == 1) {
+               alert("Error: Access is denied!");
+            } else if( err.code == 2) {
+               alert("Error: Position is unavailable!");
+            }
+         }
+if ("geolocation" in navigator) {
+  navigator.geolocation.getCurrentPosition(function(position) {
+  lat=position.coords.latitude;
+  lon=position.coords.longitude;
+  apiCall = new ApiCall;
+},errorHandler,geo_options);
+} else {
+  console.log('PAS OK');
+}
 class ApiCall {
 	constructor(){
 		$.get('http://api.openweathermap.org/data/2.5/weather?q=rennes&lang=fr&APPID=94aeaac607f35f0321198d06698d24a6',data=>{
@@ -6,12 +29,15 @@ class ApiCall {
 		})
 		$.get('http://api.openweathermap.org/data/2.5/forecast?q=verdun&lang=fr&APPID=94aeaac607f35f0321198d06698d24a6',data=>{
 			this.responseFiveDays = data;
-			console.log(data);
+			/*meteo = new MeteoCompleteFiveDays ;*/
+		})
+		$.get('http://api.openweathermap.org/data/2.5/forecast?lat='+lat+'&lon='+lon+'&lang=fr&APPID=94aeaac607f35f0321198d06698d24a6',data=>{
+			this.responseFiveDays = data;
 			meteo = new MeteoCompleteFiveDays ;
 		})
 	}
 }
-apiCall = new ApiCall;
+
 class MeteoCompleteFiveDays {
 	constructor(){		
 		this.response=apiCall.responseFiveDays;

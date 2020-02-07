@@ -54,7 +54,7 @@
 
 		</div>		
 	</div>
-	<div id="chart_div" style="height: 120px"></div>	    
+	<div id="chart_div" style="height: 120px"></div> 
 
 
 	<div id="meteoNextDays" class="container row">
