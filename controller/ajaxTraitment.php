@@ -12,6 +12,11 @@ if (!empty($_POST['email'])){
 	$rep=verifyPass();
 	echo ($rep);
 };
+if (!empty($_GET['town'])) {
+	require_once('e:/wamp64/www/meteo/controller/userController.php');
+	$rep=addFav($_GET['town']);
+	echo ($rep);
+}
     /*
 	$data = json_decode(file_get_contents('current.city.list.json')); // Récupération de la liste complète des villes;
 	function comparer($a, $b) {

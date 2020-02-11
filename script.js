@@ -283,7 +283,9 @@ $('.formInscriptionBtn').click(function(){
      }else if (response.responseText=='mail non valide'){
      	$('#error').html('<small>mail non valide</small>');
      }else if (response.responseText=='ok'){
-     	window.location.href = 'index.php?action=meteo';
+     	$('.free').animate({height:"0",margin:"0"},1000,function(){$('.free').hide();});$('.inscription').animate({height:"0",margin:"0",width:"0"},1000,function(){$('.inscription').hide();});$('.connection').show().animate({width:"90%",height:"400px",margin:"2em"},1500,function(){$('.titleConnection').hide(500);$('.formConnection').show(500);});$('.connection').off('click');
+     	$('#errorConnection').html('Vous êtes bien inscris, veuillez maintenant vous connectez');
+     	/*window.location.href = 'index.php?action=meteo';*/
      }
    },'text');	
 })
@@ -292,7 +294,6 @@ $('.formConnectionBtn').click(function(){
 	var mail=$('#email').val();
 	var pass=$('#password').val();	
 	var response=$.post('controller/ajaxTraitment.php', { email:mail,password:pass},function(data) {
-		console.log(response.responseText);
      if (response.responseText=='ok') {
      	window.location.href = 'index.php?action=meteo'
      }else {
@@ -300,4 +301,16 @@ $('.formConnectionBtn').click(function(){
      }
    },'text');	
 })
-
+$('#fav').click(function(){
+	var town=$('#loc').html();
+	var response=$.get('controller/ajaxTraitment.php',{town:town},function(data){
+		$('#content').html(response.responseText);
+		console.log(response);
+		if (response.responseText=='ok') {
+			$('#fav').html('ville bien ajouté aux favoris')
+		}else {
+			$('#fav').css('font-size','14px');
+			$('#fav').html('erreur:impossible de rajouter cette ville')
+		}
+	},'text');
+})

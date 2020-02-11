@@ -27,4 +27,9 @@ class UserManager extends Manager
 
 		return $infos;
 	}
+	public function addFavori($town1,$town2,$town3,$town4,$town5,$mail){
+		$towns = $this->db->prepare('UPDATE identifiant SET favori1 = ?,favori2 = ?,favori3 = ?,favori4 = ?,favori5 = ? WHERE mail = ?');		
+		$affectedLines = $towns->execute(array($town1,$town2,$town3,$town4,$town5,$mail));
+		return $affectedLines;
+	}
 }

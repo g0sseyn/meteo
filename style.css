@@ -31,6 +31,9 @@ body {
 .connection{
 	margin: 2em;
 }
+.flex {
+	display: flex;
+}
 .free{
 	margin: 2em;
 	position: relative;
@@ -40,6 +43,8 @@ body {
 }
 .formConnection {
 	display: none;
+}
+.formConnectionBtn {
 }
 .formInscription {
 	display: none;
@@ -131,6 +136,12 @@ body {
 	height: 23px;
 	padding:15px 0 9px;
 }
+#tempGraph,#windGraph,#rainGraph {
+	font-size: 12px;
+}
+#windGraph {
+	padding: 6px 20px;
+}
 #meteoNextDays{
 	margin-bottom: -1px;
 	padding: 0;
@@ -146,11 +157,10 @@ body {
 	cursor: pointer;
 	height: 90px;
 	width: 73px;
-	border:1px solid blue;
 	margin: auto;
 }
 .day:hover{
-	background-color: grey;
+	background-color:#b9c3cc80;
 }
 .day img {
 	position: relative;
@@ -174,4 +184,48 @@ body {
 .arrow {
   border: none;
   position: absolute;
+}
+/* Gestion celsius->fahrenheit */
+#fahrenheit:hover {
+	color:blue;
+	cursor: pointer;
+}
+#fav {
+	position: relative;
+	left: 105px;
+	display: none;
+}
+/*bloc content*/
+#content{
+	margin-top: 30px;
+	margin-left: 30px;
+	height: 500px;
+	width: 600px;
+	background-color: white;
+	padding: 0 15px;
+	border:2px solid black;
+	border-radius: 10px;
+	overflow: hidden;
+}
+#principalBloc{
+	display: flex;
+	flex-wrap: wrap;
+}
+/*menu nav*/
+.smallfont {
+	font-size: 11px;
+}
+.center {
+	text-align: center;
+}
+#formDeco {
+	position: relative;	
+	top: 15px;
+}
+#errorConnection {
+	display: inline;
+}
+#linkInscription {
+	display: inline;
+	float: right;
 }

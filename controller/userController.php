@@ -9,9 +9,9 @@ function isIdentify(){
 function verifyPass(){
     $userManager = new UserManager();
     $userInfo = $userManager->userInfo($_POST['email']);
-    /*$isPasswordCorrect = password_verify($_POST['pass'], $userInfo['pass']);*/
+    $isPasswordCorrect = password_verify($_POST['password'], $userInfo['password']);
    
-	if ($_POST['password']==$userInfo['password']) { 
+	if ($isPasswordCorrect) { 
 	   		$_SESSION['id'] = $userInfo['mail'];	
 	   		return 'ok';		
 	    }   
@@ -19,6 +19,20 @@ function verifyPass(){
 	else {
 	    	return 'false';
 	}
+}
+function addFav($town){
+	if (!isIdentify()) {
+		throw new Exception('il faut s\'identifier pour faire cela');		
+	}
+	$userManager = new UserManager();
+	$userInfo = $userManager->userInfo($_SESSION['id']);
+	$rep=$userManager->addFavori($town,$userInfo['favori1'],$userInfo['favori2'],$userInfo['favori3'],$userInfo['favori4'],$_SESSION['id']);
+	if ($rep) {
+		return 'ok';
+	}else {
+		return 'wrong' ;
+	}
+
 }
 function verifyPassOld(){
     $userManager = new UserManager();
@@ -36,7 +50,7 @@ function verifyPassOld(){
 }
 function deco(){
 	session_destroy();
-    header('Location: index.php');
+    header('Location: index.php?action=meteo');
 }
 function validInscription(){
 	if (empty($_POST['inputEmail'])||empty($_POST['inputPassword'])) {
@@ -45,8 +59,8 @@ function validInscription(){
 	$userManager = new UserManager();	
 	if ($userManager->verifyMail($_POST['inputEmail'])) {
 		throw new Exception('l\'Email est déjà existant');	
-	}
-	$affectedLines = $userManager->addUser($_POST['inputEmail'],$_POST['inputPassword']);
+	}	
+	$affectedLines = $userManager->addUser($_POST['inputEmail'],password_hash($_POST['inputPassword'], PASSWORD_DEFAULT));
 	if ($affectedLines === false) {
         throw new Exception('Impossible de vous ajouter');
     }    
@@ -60,7 +74,7 @@ function validMail($email,$pass){
 	if ($userManager->verifyMail($email)) {
 		return 'mail existant';	
 	}
-	$affectedLines = $userManager->addUser($email,$pass); 
+	$affectedLines = $userManager->addUser($email,password_hash($pass, PASSWORD_DEFAULT)); 
 	if ($affectedLines === false) {
         return 'Impossible de vous ajouter';
     } 
