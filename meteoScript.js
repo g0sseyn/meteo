@@ -26,14 +26,15 @@ $('#changeBtn').click(function(){
 	apiCall = new ApiCall;
 	apiCall.town=$('#search')[0].value;
 	apiCall.byTown();
-	console.log($('#search')[0].value);
-
 });
 class ApiCall {
 	byTown(){
 		$.get('http://api.openweathermap.org/data/2.5/forecast?q='+this.town+'&lang=fr&APPID=94aeaac607f35f0321198d06698d24a6',data=>{
+			$('#errorTown').html('');
 			this.responseFiveDays = data;
 			meteo = new MeteoCompleteFiveDays ;
+		}).fail(function(){
+			$('#errorTown').html('Ville inconnu, veuillez recommencer ');
 		})
 	}
 	byLocation(){	
@@ -45,7 +46,9 @@ class ApiCall {
 }
 
 class MeteoCompleteFiveDays {
-	constructor(){		
+	constructor(){
+		$('#fav').html('+ ajouter aux favoris');
+		favoriteClick();	
 		this.response=apiCall.responseFiveDays;
 		$('.today').on('click',this.show.bind(this));
 		$('#day0').on('click',this.show.bind(this));

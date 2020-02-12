@@ -17,6 +17,14 @@ if (!empty($_GET['town'])) {
 	$rep=addFav($_GET['town']);
 	echo ($rep);
 }
+if (!empty($_GET['fav'])) {
+	require_once('e:/wamp64/www/meteo/controller/userController.php');
+	$rep=giveFav();
+	if (empty($rep)) {
+		return;	
+	}
+	echo implode('|', $rep);
+}
     /*
 	$data = json_decode(file_get_contents('current.city.list.json')); // Récupération de la liste complète des villes;
 	function comparer($a, $b) {

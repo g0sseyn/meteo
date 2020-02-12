@@ -301,16 +301,35 @@ $('.formConnectionBtn').click(function(){
      }
    },'text');	
 })
-$('#fav').click(function(){
-	var town=$('#loc').html();
-	var response=$.get('controller/ajaxTraitment.php',{town:town},function(data){
-		$('#content').html(response.responseText);
-		console.log(response);
-		if (response.responseText=='ok') {
-			$('#fav').html('ville bien ajouté aux favoris')
-		}else {
-			$('#fav').css('font-size','14px');
-			$('#fav').html('erreur:impossible de rajouter cette ville')
-		}
-	},'text');
-})
+function favoriteClick(){
+	$('#fav').click(function(){
+		var town=$('#loc').html();
+		var response=$.get('controller/ajaxTraitment.php',{town:town},function(data){
+			$('#content').html(response.responseText);
+			$('#fav').off('click');
+			if (response.responseText=='ok') {
+				$('#fav').html('ville bien ajouté aux favoris');
+			}else if (response.responseText=='already') {
+				$('#fav').html('ville deja dans vos favoris');
+			}else {
+				$('#fav').css('font-size','14px');
+				$('#fav').html('erreur:impossible de rajouter cette ville');
+			}
+		},'text');
+		favorite();
+	})
+}
+function favorite(){
+	var response=$.get('controller/ajaxTraitment.php?fav=1',function(data){
+		var favorites = response.responseText.split('|');
+		$('#favoriteTown').html('');
+		if (favorites.length==1&&favorites[0]==['']) { return;}
+		favorites.forEach(element=>$('#favoriteTown').append('<div class="container col-sm-2"><a class="btn btn-primary btn-block favBtn">'+element+'</a></div>'));
+		$('.favBtn').click(function(e){
+			apiCall = new ApiCall;
+			apiCall.town=e.currentTarget.textContent;
+			apiCall.byTown();
+		})
+	})
+}
+favorite();

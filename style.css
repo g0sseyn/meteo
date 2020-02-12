@@ -101,6 +101,8 @@ body {
 }
 #loc {
 	font-size: x-large ;
+	display: inline-block;
+	min-width: 55%;
 }
 #day {
 	font-size: medium;
@@ -191,8 +193,6 @@ body {
 	cursor: pointer;
 }
 #fav {
-	position: relative;
-	left: 105px;
 	display: none;
 }
 /*bloc content*/
@@ -228,4 +228,7 @@ body {
 #linkInscription {
 	display: inline;
 	float: right;
+}
+#errorTown {
+	margin-bottom: 0;
 }

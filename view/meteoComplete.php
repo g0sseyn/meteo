@@ -1,12 +1,15 @@
 <?php ob_start(); ?>
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand" id="titleDay"></a>
-  <div class="form-inline">
-    <input class="form-control mr-sm-2" type="text" placeholder="changer de ville" id="search" name="search" autocomplete="off" required list="results" >
-    <datalist id="results">		
-	</datalist>
-    <button class="btn btn-outline-success my-2 my-sm-0" id="changeBtn" type="button">go!</button>
-  </div>
+  <div>
+	  <div class="form-inline">
+	    <input class="form-control mr-sm-2" type="text" placeholder="changer de ville" id="search" name="search" autocomplete="off" required list="results" >
+	    <datalist id="results">		
+		</datalist>
+	    <button class="btn btn-outline-success my-2 my-sm-0" id="changeBtn" type="button">go!</button>	    
+	  </div>
+	  <p id="errorTown" class="smallfont"></p>
+	</div>
   <?php if (isIdentify()) { ?>
     <div class="flex">
     	<form action="index.php?action=parametre" method="post">
@@ -38,27 +41,13 @@
  	</div>
 <?php } ?>
 </nav>
-<div class="row sticky-top container col-sm-12">
-	<div class="container col-sm-2">
-		<a class="btn btn-primary btn-block">favori1</a>
-	</div>
-	<div class="container col-sm-2">
-		<a class="btn btn-primary btn-block">favori2</a>
-	</div>
-	<div class="container col-sm-2">
-		<a class="btn btn-primary btn-block">favori3</a>
-	</div>
-	<div class="container col-sm-2">
-		<a class="btn btn-primary btn-block">favori4</a>
-	</div>
-	<div class="container col-sm-2 ">
-		<a class="btn btn-primary btn-block">favori5</a>
-	</div>
+<div class="row sticky-top container col-sm-12" id="favoriteTown">
+
 </div>
 <div class="container col-sm-12" id="principalBloc">
 <div id="meteoDiv">
 	<span>
-		<div id="loc" style="display: inline"></div><?php if (isIdentify()) { ?><a href="#" id="fav">+ ajouter aux favoris</a><span id="favOk"></span><?php } ?>
+		<div id="loc"></div><?php if (isIdentify()) { ?><a href="#" id="fav">+ ajouter aux favoris</a><span id="favOk"></span><?php } ?>
 		<div id="day"></div>
 		<div id="weatherDescription"></div>
 	</span>

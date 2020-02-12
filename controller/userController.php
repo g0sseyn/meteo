@@ -26,6 +26,9 @@ function addFav($town){
 	}
 	$userManager = new UserManager();
 	$userInfo = $userManager->userInfo($_SESSION['id']);
+	if ($town==$userInfo['favori1']||$town==$userInfo['favori2']||$town==$userInfo['favori3']||$town==$userInfo['favori4']||$town==$userInfo['favori5']) {
+		return 'already';
+	}
 	$rep=$userManager->addFavori($town,$userInfo['favori1'],$userInfo['favori2'],$userInfo['favori3'],$userInfo['favori4'],$_SESSION['id']);
 	if ($rep) {
 		return 'ok';
@@ -80,4 +83,18 @@ function validMail($email,$pass){
     } 
     $_SESSION['id'] = $email;
     return 'ok';	
+}
+function giveFav(){
+	if (!isset($_SESSION['id'])) {
+		return;
+	}
+	$userManager = new UserManager();
+    $userInfo = $userManager->userInfo($_SESSION['id']);
+    $fav=array();
+    for ($i=1; $i < 6 ; $i++) { 
+    	if (isset($userInfo['favori'.$i])) {
+    		array_push($fav, $userInfo['favori'.$i]);
+    	}
+    }
+    return $fav;
 }
