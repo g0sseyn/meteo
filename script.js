@@ -275,16 +275,23 @@ $('.formInscriptionBtn').click(function(){
 	$('#error').html('');
 	var mail=$('#inputEmail').val();
 	var pass=$('#inputPassword').val();	
-	var response=$.post('controller/ajaxTraitment.php', { mail:mail,pass:pass},function(data) {
+	var hidden=$('#hidden').val();
+	var response=$.post('controller/ajaxTraitment.php', { mail:mail,pass:pass,hidden:hidden},function(data) {
      if (response.responseText=='mail existant') {
-     	$('#error').html('<small id=\'connect\'>mail existant,voulez-vous vous connectez ?</small><script type="text/javascript">$(\'#connect\').click(function(){$(\'.free\').animate({height:"0",margin:"0"},1000,function(){$(\'.free\').hide();});$(\'.inscription\').animate({height:"0",margin:"0",width:"0"},1000,function(){$(\'.inscription\').hide();});$(\'.connection\').show().animate({width:"90%",height:"400px",margin:"2em"},1500,function(){$(\'.titleConnection\').hide(500);$(\'.formConnection\').show(500);});$(\'.connection\').off(\'click\');})</script>')
+     	/*$('#error').html('<small id=\'connect\'>mail existant,voulez-vous vous connectez ?</small><script type="text/javascript">$(\'#connect\').click(function(){$(\'.free\').animate({height:"0",margin:"0"},1000,function(){$(\'.free\').hide();});$(\'.inscription\').animate({height:"0",margin:"0",width:"0"},1000,function(){$(\'.inscription\').hide();});$(\'.connection\').show().animate({width:"90%",height:"400px",margin:"2em"},1500,function(){$(\'.titleConnection\').hide(500);$(\'.formConnection\').show(500);});$(\'.connection\').off(\'click\');})</script>')*/
+     	$('#error').html('<small>mail existant,veuillez vous connectez sur la page principal  <a href="index.php?action=meteo">ici</a></small><p><small>ou recommencez avec un autre mail</small></p>');
+     }else if (response.responseText=='error') {
+     	$('#error').html('<small>erreur : rechargez la page et recommencez</small>');
      }else if (response.responseText=='Impossible de vous ajouter') {
      	$('#error').html('<small>impossible de vous ajouter</small>')
      }else if (response.responseText=='mail non valide'){
      	$('#error').html('<small>mail non valide</small>');
      }else if (response.responseText=='ok'){
-     	$('.free').animate({height:"0",margin:"0"},1000,function(){$('.free').hide();});$('.inscription').animate({height:"0",margin:"0",width:"0"},1000,function(){$('.inscription').hide();});$('.connection').show().animate({width:"90%",height:"400px",margin:"2em"},1500,function(){$('.titleConnection').hide(500);$('.formConnection').show(500);});$('.connection').off('click');
-     	$('#errorConnection').html('Vous êtes bien inscris, veuillez maintenant vous connectez');
+     	/*$('.free').animate({height:"0",margin:"0"},1000,function(){$('.free').hide();});$('.inscription').animate({height:"0",margin:"0",width:"0"},1000,function(){$('.inscription').hide();});$('.connection').show().animate({width:"90%",height:"400px",margin:"2em"},1500,function(){$('.titleConnection').hide(500);$('.formConnection').show(500);});$('.connection').off('click');*/
+     	$('#error').html('<p>Vous êtes bien inscris, vous allez être rediriger sur la page d\'accueil</p><p>veuillez vous connecter sur celle-ci</p>');
+     	setTimeout(function(){
+     		window.location.href = 'index.php?action=meteo';
+     	},5000);
      	/*window.location.href = 'index.php?action=meteo';*/
      }
    },'text');	

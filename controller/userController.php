@@ -6,11 +6,19 @@ function isIdentify(){
     }
     return false;
 }
+function isAdmin(){
+	if (isset($_SESSION['is_admin'])){
+        return true;
+    }
+    return false;
+}
 function verifyPass(){
     $userManager = new UserManager();
     $userInfo = $userManager->userInfo($_POST['email']);
     $isPasswordCorrect = password_verify($_POST['password'], $userInfo['password']);
-   
+    if ($userInfo['is_admin']==1) {
+    	$_SESSION['is_admin']=$userInfo['is_admin'];
+    }   
 	if ($isPasswordCorrect) { 
 	   		$_SESSION['id'] = $userInfo['mail'];	
 	   		return 'ok';		
@@ -69,9 +77,12 @@ function validInscription(){
     }    
     meteo();    
 }
-function validMail($email,$pass){
+function validMail($email,$pass,$hidden){	
 	if (!preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#i", $email)){
         return 'mail non valide';
+    }
+    if (!empty($hidden)) {
+    	return 'error';
     }
 	$userManager = new UserManager();	
 	if ($userManager->verifyMail($email)) {
@@ -80,8 +91,7 @@ function validMail($email,$pass){
 	$affectedLines = $userManager->addUser($email,password_hash($pass, PASSWORD_DEFAULT)); 
 	if ($affectedLines === false) {
         return 'Impossible de vous ajouter';
-    } 
-    $_SESSION['id'] = $email;
+    }
     return 'ok';	
 }
 function giveFav(){

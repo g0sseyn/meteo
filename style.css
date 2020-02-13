@@ -47,7 +47,6 @@ body {
 .formConnectionBtn {
 }
 .formInscription {
-	display: none;
 }
 .townBtn {
 	position: absolute;
@@ -89,8 +88,6 @@ body {
 
 /*bloc météo*/
 #meteoDiv{
-	margin-top: 30px;
-	margin-left: 30px;
 	height: 500px;
 	width: 600px;
 	background-color: white;
@@ -98,6 +95,8 @@ body {
 	border:2px solid black;
 	border-radius: 10px;
 	overflow: hidden;
+	float:right;
+	margin-left: 15px;
 }
 #loc {
 	font-size: x-large ;
@@ -175,7 +174,10 @@ body {
 	color: #878787;
 }
 .weekTempMin{
-	color: #bababa ;
+	color: #4eaad7 ;
+}
+.weekTempMax{
+	color:#e85c5c;
 }
 #chart_div{
 	position:relative;
@@ -198,9 +200,7 @@ body {
 /*bloc content*/
 #content{
 	margin-top: 30px;
-	margin-left: 30px;
-	height: 500px;
-	width: 600px;
+	min-width: 600px;
 	background-color: white;
 	padding: 0 15px;
 	border:2px solid black;
@@ -208,8 +208,9 @@ body {
 	overflow: hidden;
 }
 #principalBloc{
-	display: flex;
-	flex-wrap: wrap;
+}
+hr {
+	width: 40%;
 }
 /*menu nav*/
 .smallfont {

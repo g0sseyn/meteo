@@ -1,51 +1,10 @@
 <?php ob_start(); ?>
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" id="titleDay"></a>
-  <div>
-	  <div class="form-inline">
-	    <input class="form-control mr-sm-2" type="text" placeholder="changer de ville" id="search" name="search" autocomplete="off" required list="results" >
-	    <datalist id="results">		
-		</datalist>
-	    <button class="btn btn-outline-success my-2 my-sm-0" id="changeBtn" type="button">go!</button>	    
-	  </div>
-	  <p id="errorTown" class="smallfont"></p>
-	</div>
-  <?php if (isIdentify()) { ?>
-    <div class="flex">
-    	<form action="index.php?action=parametre" method="post">
-       		<button type="submit" class="btn btn-default btn-sm">
-          		<img src="houseicon.png">          	
-          		<p class="smallfont"><a href="index.php?action=parametre">paramètres</a></p>
-          	</button>
-        </form>
-        <form action="index.php?action=deco" method="post" class="center" id="formDeco">        	
-			<button type="submit" class="btn btn-danger">X</button>
-			<p class="smallfont"><a href="index.php?action=deco">se déconnecter</a></p>			
-		</form>
-    </div>
 
-   <?php }else {?>
-   	<div>
-   	  	<form onsubmit='return false;' method="post" class="container formConnection">   
-    		<div class="">
-       	 		<input type="email" id="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Email" required>    
-     		</div>
-      		<div class="">
-        		<input type="password" class="form-control" id='password' name="password" placeholder="Mot de passe" required>
-      		</div>      
-      		<button type="submit" class="btn btn-primary formConnectionBtn">Se connecter</button>   
-
- 		</form>
- 		<div id="errorConnection"></div>
-      	<div id="linkInscription"><a href="">pas encore inscris?inscrivez-vous vite</a></div>
- 	</div>
-<?php } ?>
-</nav>
-<div class="row sticky-top container col-sm-12" id="favoriteTown">
+<div class="row container col-sm-12" id="favoriteTown">
 
 </div>
 <div class="container col-sm-12" id="principalBloc">
-<div id="meteoDiv">
+<div id="meteoDiv" class="sticky-top">
 	<span>
 		<div id="loc"></div><?php if (isIdentify()) { ?><a href="#" id="fav">+ ajouter aux favoris</a><span id="favOk"></span><?php } ?>
 		<div id="day"></div>
@@ -78,31 +37,55 @@
 		<div class="day day0">
 			<p id="weekDay0"></p>
 			<img id="day0" src="" ></i>
-			<p class="weekTemp" ><span id="weekTemp0" ></span><span id="weekTempMin0" class="weekTempMin"></span></p>
+			<p class="weekTemp" ><span id="weekTemp0" class="weekTempMax"></span><span id="weekTempMin0" class="weekTempMin"></span></p>
 		</div>
 		<div class="day day1">
 			<p id="weekDay1"></p>
 			<img id="day1" src="" ></i>
-			<p class="weekTemp"><span id="weekTemp1" ></span><span id="weekTempMin1" class="weekTempMin"></span></p>
+			<p class="weekTemp"><span id="weekTemp1" class="weekTempMax"></span><span id="weekTempMin1" class="weekTempMin"></span></p>
 		</div>
 		<div class="day day2">
 			<p id="weekDay2"></p>
 			<img id="day2" src="" ></i>
-			<p class="weekTemp"><span id="weekTemp2" ></span><span id="weekTempMin2" class="weekTempMin"></span></p>
+			<p class="weekTemp"><span id="weekTemp2" class="weekTempMax"></span><span id="weekTempMin2" class="weekTempMin"></span></p>
 		</div>
 		<div class="day day3">
 			<p id="weekDay3"></p>
 			<img id="day3" src="" ></i>
-			<p class="weekTemp"><span id="weekTemp3" ></span><span id="weekTempMin3" class="weekTempMin"></span></p>
+			<p class="weekTemp"><span id="weekTemp3" class="weekTempMax"></span><span id="weekTempMin3" class="weekTempMin"></span></p>
 		</div>
 		<div class="day day4">
 			<p id="weekDay4"></p>
 			<img id="day4" src="" ></i>
-			<p class="weekTemp"><span id="weekTemp4" ></span><span id="weekTempMin4" class="weekTempMin"></span></p>
+			<p class="weekTemp"><span id="weekTemp4" class="weekTempMax"></span><span id="weekTempMin4" class="weekTempMin"></span></p>
 		</div>
 	</div>
 </div>
 <div id="content" class="">	
+	<?php 
+while ($data = $posts->fetch())
+{
+?>
+    <div class="news">
+        <h3 class="center">
+            <a href=""><?= htmlspecialchars($data['title_news']); ?></a>
+            <br/>
+            <em>le <?= $data['creation_date_news_fr']; ?></em>
+        </h3>
+        <?php if (isset($data['img_url'])&&$data['img_url']!=='0') { ?>       
+            <div class="image"><img src="<?= $data['img_url']?>"></div>
+        <?php ;} ?>
+       
+        <?= nl2br($data['content_news']) ?>
+        <br /> 
+     </div>
+     <hr>
+
+<?php
+} 
+$posts->closeCursor();
+?>
 </div>
 </div>
+<script type="text/javascript">$(function() {geoCall()});</script>
 <?php $meteoComplete = ob_get_clean(); ?>

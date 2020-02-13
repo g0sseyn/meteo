@@ -4,8 +4,8 @@ $res='';
 $rep='';
 if (!empty($_POST['mail'])){
   	require_once('e:/wamp64/www/meteo/controller/userController.php');
-    $res=validMail($_POST['mail'],$_POST['pass']);
-    echo ($res);
+    $response=validMail($_POST['mail'],$_POST['pass'],$_POST['hidden']);
+    echo ($response);
 }; 
 if (!empty($_POST['email'])){
 	require_once('e:/wamp64/www/meteo/controller/userController.php');

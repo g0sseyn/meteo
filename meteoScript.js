@@ -1,32 +1,35 @@
-var lat;
-var lon;
-var geo_options = {
-  enableHighAccuracy: true, 
-  maximumAge        : 30000, 
-  timeout           : 27000
-};
-function errorHandler(err) {
-            if(err.code == 1) {
-               console.log("Erreur: l'accès à la géolocalisation est refusé!");
-            } else if( err.code == 2) {
-               console.log("Erreur: la position n'est pas disponible!");
-            }
-         }
-if ("geolocation" in navigator) {
-  navigator.geolocation.getCurrentPosition(function(position) {  
-  apiCall = new ApiCall;
-  apiCall.lat=position.coords.latitude;
-  apiCall.lon=position.coords.longitude;
-  apiCall.byLocation();
-},errorHandler,geo_options);
-} else {
-  console.log('erreur géolocalisation');
-}
+
 $('#changeBtn').click(function(){
 	apiCall = new ApiCall;
 	apiCall.town=$('#search')[0].value;
 	apiCall.byTown();
 });
+function geoCall(){
+	function errorHandler(err) {
+            if(err.code == 1) {
+                console.log("Erreur: l'accès à la géolocalisation est refusé!");
+            }else if( err.code == 2) {
+                console.log("Erreur: la position n'est pas disponible!");
+            }
+        }
+    var lat;
+	var lon;
+	var geo_options = {
+		    enableHighAccuracy: true, 
+	        maximumAge        : 30000, 
+	  	    timeout           : 10000
+		};
+	if ("geolocation" in navigator) {
+	  navigator.geolocation.getCurrentPosition(function(position) {  
+		    apiCall = new ApiCall;
+		    apiCall.lat=position.coords.latitude;
+		    apiCall.lon=position.coords.longitude;
+		    apiCall.byLocation();
+		},errorHandler,geo_options);
+	}else {
+	  console.log('erreur géolocalisation');
+	}
+}
 class ApiCall {
 	byTown(){
 		$.get('http://api.openweathermap.org/data/2.5/forecast?q='+this.town+'&lang=fr&APPID=94aeaac607f35f0321198d06698d24a6',data=>{
@@ -216,29 +219,82 @@ class MeteoCompleteFiveDays {
 		$('#day3').attr('src','http://openweathermap.org/img/wn/'+this.response.list[24-this.decalage].weather[0].icon+'@2x.png');
 		$('#day4').attr('src','http://openweathermap.org/img/wn/'+this.response.list[32-this.decalage].weather[0].icon+'@2x.png');
 	}
+	giveMinMaxTemp(){
+		this.mintemp0=1000;
+		this.maxtemp0=-1000;
+		this.mintemp1=1000;
+		this.maxtemp1=-1000;
+		this.mintemp2=1000;
+		this.maxtemp2=-1000;
+		this.mintemp3=1000;
+		this.maxtemp3=-1000;
+		this.mintemp4=1000;
+		this.maxtemp4=-1000;
+		for (var i = 0; i < 8-this.decalage-4; i++) {
+			if (this.mintemp0>this.response.list[i].main.temp_min) {
+				this.mintemp0=this.response.list[i].main.temp_min;
+			}
+			if (this.maxtemp0<this.response.list[i].main.temp_max) {
+				this.maxtemp0=this.response.list[i].main.temp_max;
+			}
+		}
+		for (var i =4-this.decalage; i < 16-this.decalage-4; i++) {
+			if (this.mintemp1>this.response.list[i].main.temp_min) {
+				this.mintemp1=this.response.list[i].main.temp_min;
+			}
+			if (this.maxtemp1<this.response.list[i].main.temp_max) {
+				this.maxtemp1=this.response.list[i].main.temp_max;
+			}
+		}
+		for (var i =16-this.decalage-4; i < 24-this.decalage-4; i++) {
+			if (this.mintemp2>this.response.list[i].main.temp_min) {
+				this.mintemp2=this.response.list[i].main.temp_min;
+			}
+			if (this.maxtemp2<this.response.list[i].main.temp_max) {
+				this.maxtemp2=this.response.list[i].main.temp_max;
+			}
+		}
+		for (var i =24-this.decalage-4; i < 32-this.decalage-4; i++) {
+			if (this.mintemp3>this.response.list[i].main.temp_min) {
+				this.mintemp3=this.response.list[i].main.temp_min;
+			}
+			if (this.maxtemp3<this.response.list[i].main.temp_max) {
+				this.maxtemp3=this.response.list[i].main.temp_max;
+			}
+		}
+		for (var i =32-this.decalage-4; i < 40-this.decalage-4; i++) {
+			if (this.mintemp4>this.response.list[i].main.temp_min) {
+				this.mintemp4=this.response.list[i].main.temp_min;
+			}
+			if (this.maxtemp4<this.response.list[i].main.temp_max) {
+				this.maxtemp4=this.response.list[i].main.temp_max;
+			}
+		}
+	}
 	showNextTemp(){
+		this.giveMinMaxTemp();
 		if (this.tempUnity=='celsius') {
-			$('#weekTemp0').html(Math.round(this.response.list[0].main.temp_max-273.15)+' ° ');
-			$('#weekTempMin0').html(Math.round(this.response.list[0].main.temp_min-273.15)+' °');
-			$('#weekTemp1').html(Math.round(this.response.list[8-this.decalage].main.temp_max-273.15)+' ° ');
-			$('#weekTempMin1').html(Math.round(this.response.list[8-this.decalage].main.temp_min-273.15)+' °');
-			$('#weekTemp2').html(Math.round(this.response.list[16-this.decalage].main.temp_max-273.15)+' ° ');
-			$('#weekTempMin2').html(Math.round(this.response.list[16-this.decalage].main.temp_min-273.15)+' °');
-			$('#weekTemp3').html(Math.round(this.response.list[24-this.decalage].main.temp_max-273.15)+' ° ');
-			$('#weekTempMin3').html(Math.round(this.response.list[24-this.decalage].main.temp_min-273.15)+' °');
-			$('#weekTemp4').html(Math.round(this.response.list[32-this.decalage].main.temp_max-273.15)+' ° ');
-			$('#weekTempMin4').html(Math.round(this.response.list[32-this.decalage].main.temp_min-273.15)+' °');
+			$('#weekTemp0').html(Math.round(this.maxtemp0-273.15)+' ° ');
+			$('#weekTempMin0').html(Math.round(this.mintemp0-273.15)+' °');
+			$('#weekTemp1').html(Math.round(this.maxtemp1-273.15)+' ° ');
+			$('#weekTempMin1').html(Math.round(this.mintemp1-273.15)+' °');
+			$('#weekTemp2').html(Math.round(this.maxtemp2-273.15)+' ° ');
+			$('#weekTempMin2').html(Math.round(this.mintemp2-273.15)+' °');
+			$('#weekTemp3').html(Math.round(this.maxtemp3-273.15)+' ° ');
+			$('#weekTempMin3').html(Math.round(this.mintemp3-273.15)+' °');
+			$('#weekTemp4').html(Math.round(this.maxtemp4-273.15)+' ° ');
+			$('#weekTempMin4').html(Math.round(this.mintemp4-273.15)+' °');
 		}else {
-			$('#weekTemp0').html(Math.round((this.response.list[0].main.temp_max-273.15)*9/5+32)+' ° ');
-			$('#weekTempMin0').html(Math.round((this.response.list[0].main.temp_min-273.15)*9/5+32)+' °');
-			$('#weekTemp1').html(Math.round((this.response.list[8-this.decalage].main.temp_max-273.15)*9/5+32)+' ° ');
-			$('#weekTempMin1').html(Math.round((this.response.list[8-this.decalage].main.temp_min-273.15)*9/5+32)+' °');
-			$('#weekTemp2').html(Math.round((this.response.list[16-this.decalage].main.temp_max-273.15)*9/5+32)+' ° ');
-			$('#weekTempMin2').html(Math.round((this.response.list[16-this.decalage].main.temp_min-273.15)*9/5+32)+' °');
-			$('#weekTemp3').html(Math.round((this.response.list[24-this.decalage].main.temp_max-273.15)*9/5+32)+' ° ');
-			$('#weekTempMin3').html(Math.round((this.response.list[24-this.decalage].main.temp_min-273.15)*9/5+32)+' °');
-			$('#weekTemp4').html(Math.round((this.response.list[32-this.decalage].main.temp_max-273.15)*9/5+32)+' ° ');
-			$('#weekTempMin4').html(Math.round((this.response.list[32-this.decalage].main.temp_min-273.15)*9/5+32)+' °');
+			$('#weekTemp0').html(Math.round((this.maxtemp0-273.15)*9/5+32)+' ° ');
+			$('#weekTempMin0').html(Math.round((this.mintemp0-273.15)*9/5+32)+' °');
+			$('#weekTemp1').html(Math.round((this.maxtemp1-273.15)*9/5+32)+' ° ');
+			$('#weekTempMin1').html(Math.round((this.mintemp1-273.15)*9/5+32)+' °');
+			$('#weekTemp2').html(Math.round((this.maxtemp2-273.15)*9/5+32)+' ° ');
+			$('#weekTempMin2').html(Math.round((this.mintemp2-273.15)*9/5+32)+' °');
+			$('#weekTemp3').html(Math.round((this.maxtemp3-273.15)*9/5+32)+' ° ');
+			$('#weekTempMin3').html(Math.round((this.mintemp3-273.15)*9/5+32)+' °');
+			$('#weekTemp4').html(Math.round((this.maxtemp4-273.15)*9/5+32)+' ° ');
+			$('#weekTempMin4').html(Math.round((this.mintemp4-273.15)*9/5+32)+' °');
 		}	
 	}
 	showWeekDay(){
