@@ -1,41 +1,8 @@
-/*function ajaxGet(url, callback) {
-	var req = new XMLHttpRequest();
-	req.open("GET", url);
-	req.addEventListener("load", function () {
-		if (req.status >= 200 && req.status < 400) {         
-			callback(req.responseText);
-		} else {
-			console.error(req.status + " " + req.statusText + " " + url);
-		}
-	});
-	req.addEventListener("error", function () {
-		console.error("Erreur réseau avec l'URL " + url);		
-	});
-	req.send(null);
-};*/
-/*ajaxGet("api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=94aeaac607f35f0321198d06698d24a6", function (reponse) {
-	var meteos = JSON.parse(reponse);		
-	meteos.forEach(function(station) {
-	$('#meteo').html(meteos);
-		
-	})	
-});*/
-/* $.get('http://api.openweathermap.org/data/2.5/box/city?bbox=12,32,15,37,10&APPID=94aeaac607f35f0321198d06698d24a6',function (reponse) {
-	console.log(reponse);
-	var stations = reponse;
-	stations.list.forEach(	function(station){
-	$('#meteo').append('<div class="name"> nom station : '+station.name+'</div>');
-	$('#meteo').append('<div class="cloud"> couverture nuageuse : '+station.clouds.today+'%</div>');
-	$('#meteo').append('<div class="temperature"> temperature moyenne : '+station.main.temp+'°C</div>');
-	$('#meteo').append('<div class="humidity"> humidité : '+station.main.humidity+'%</div>');
-		}	)
-})
-*/
+tinymce.init({
+    selector: '#addContent'
+});
 class Meteo {
 	constructor(){
-		//this.id=$('#meteo').attr('class');
-		//this.showMeteo(this.id);
-		//this.showSun(this.id);
 		this.loc = $('#search').value;
 		this.resetMeteo();
 	}
@@ -312,7 +279,6 @@ function favoriteClick(){
 	$('#fav').click(function(){
 		var town=$('#loc').html();
 		var response=$.get('controller/ajaxTraitment.php',{town:town},function(data){
-			$('#content').html(response.responseText);
 			$('#fav').off('click');
 			if (response.responseText=='ok') {
 				$('#fav').html('ville bien ajouté aux favoris');

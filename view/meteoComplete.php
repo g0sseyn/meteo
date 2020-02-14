@@ -73,7 +73,7 @@ while ($data = $posts->fetch())
             <em>le <?= $data['creation_date_news_fr']; ?></em>
         </h3>
         <?php if (isset($data['img_url'])&&$data['img_url']!=='0') { ?>       
-            <div class="image"><img src="<?= $data['img_url']?>"></div>
+            <div class="image center"><img src="<?= $data['img_url']?>"></div>
         <?php ;} ?>
        
         <?= nl2br($data['content_news']) ?>

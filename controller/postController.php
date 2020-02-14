@@ -16,3 +16,18 @@ function deletePost(){
     }
 	header('Location: index.php?action=admin');
 }
+function addPost(){
+    if (!isAdmin()) {
+        throw new Exception('Veuillez vous identifier');
+    }
+    if (empty($_POST['title']) || empty($_POST['addContent'])) {
+        throw new Exception('Tous les champs ne sont pas remplis !');
+    }
+    $postManager = new PostManager();
+    $affectedLines = $postManager->addPost($_POST['title'], $_POST['addContent'],$_POST['imgURL']);
+
+    if ($affectedLines === false) {
+        throw new Exception('Impossible d\'ajouter l\'article !');
+    }    
+    header('Location: index.php?action=admin');    
+}

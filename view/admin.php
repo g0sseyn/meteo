@@ -1,6 +1,6 @@
 <?php ob_start(); ?>   
   <div class="offset-md-2 col-md-8">
-    <a href="adminPost" class="btn btn-primary btn-block">Ajouter un nouvelle article</a>
+    <a href="index.php?action=adminPost" class="btn btn-primary btn-block">Ajouter un nouvelle article</a>
   </div>
   <h2 class="center">Supprimer ou modifier un article</h2>
   <div class="offset-md-2 col-md-8 table-responsive">
@@ -18,7 +18,7 @@
           <td>
             <a href="<?= $data['id']; ?>-<?php $title = str_replace(' ', '-', $data['title_news']);echo $title; ?>"><?= htmlspecialchars($data['title_news']); ?></a>
           </td>
-          <td class="center"><a href="adminPost-<?= $data['id']; ?>" class="btn btn-primary">Modifier</a></td>
+          <td class="center"><a href="index.php?action=adminPost&id=<?= $data['id']; ?>" class="btn btn-primary">Modifier</a></td>
           <td class="center"><a href="index.php?action=deletePost&id=<?= $data['id']; ?>" class="btn btn-danger">Supprimer</a></td>
         </tr>
         <?php } $posts->closeCursor(); ?>      

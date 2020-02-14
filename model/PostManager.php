@@ -18,4 +18,9 @@ class PostManager extends Manager
 		}
 		else $this->db->rollBack();
 	}
+	public function addPost($title, $content, $imgURL){		
+	    $news = $this->db->prepare('INSERT INTO news(title_news, content_news, creation_date_news, img_url) VALUES(:title, :content, NOW(),:imgurl )');
+	    $affectedLines = $news->execute(array('title'=>$title,'content'=> $content,'imgurl'=> $imgURL));	   
+	    return $affectedLines;
+	}
 }
