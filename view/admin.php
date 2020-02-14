@@ -16,7 +16,7 @@
         <?php while ($data = $posts->fetch()){ ?>
         <tr>
           <td>
-            <a href="<?= $data['id']; ?>-<?php $title = str_replace(' ', '-', $data['title_news']);echo $title; ?>"><?= htmlspecialchars($data['title_news']); ?></a>
+            <a href="index.php?action=adminPost&id=<?= $data['id']; ?>"><?= htmlspecialchars($data['title_news']); ?></a>
           </td>
           <td class="center"><a href="index.php?action=adminPost&id=<?= $data['id']; ?>" class="btn btn-primary">Modifier</a></td>
           <td class="center"><a href="index.php?action=deletePost&id=<?= $data['id']; ?>" class="btn btn-danger">Supprimer</a></td>

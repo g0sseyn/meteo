@@ -31,3 +31,13 @@ function addPost(){
     }    
     header('Location: index.php?action=admin');    
 }
+function updatePost(){
+    if (!isAdmin()) {
+        throw new Exception('Veuillez vous identifier');
+    }
+    if (isset($_GET['id']) && $_GET['id'] > 0) {
+       $postManager = new PostManager();
+       $postManager->updatePost($_GET['id'],$_POST['title'],$_POST['addContent'],$_POST['imgURL']);
+    }
+    header('Location: index.php?action=admin');
+}

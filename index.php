@@ -21,6 +21,8 @@ try {
 			addPost();
 		}else if ($_GET['action']=='deletePost'){
 			deletePost();
+		}else if ($_GET['action']=='updatePost'){
+			updatePost();
 		}
 	}	
 	else {
