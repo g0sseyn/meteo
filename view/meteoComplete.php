@@ -62,29 +62,9 @@
 	</div>
 </div>
 <div id="content" class="">	
-	<?php 
-while ($data = $posts->fetch())
-{
-?>
-    <div class="news">
-        <h3 class="center">
-            <a href=""><?= htmlspecialchars($data['title_news']); ?></a>
-            <br/>
-            <em>le <?= $data['creation_date_news_fr']; ?></em>
-        </h3>
-        <?php if (isset($data['img_url'])&&$data['img_url']!=='0') { ?>       
-            <div class="image center"><img src="<?= $data['img_url']?>"></div>
-        <?php ;} ?>
-       
-        <?= nl2br($data['content_news']) ?>
-        <br /> 
-     </div>
-     <hr>
-
-<?php
-} 
-$posts->closeCursor();
-?>
+	<?php if (isset($newsContent)) {
+		echo $newsContent;
+	} ?>
 </div>
 </div>
 <script type="text/javascript">$(function() {geoCall()});</script>

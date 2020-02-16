@@ -66,7 +66,7 @@ ob_start(); ?>
                             </div>
                         </div>
                     </div>
-                    <td class="center"><a href="deleteComment-<?= $com['id']; ?>-<?= $_GET['id'] ?>" class="btn btn-danger">Supprimer</a></td>
+                    <td class="center"><a href="index.php?action=deleteComment&amp;id=<?= $com['id']; ?>&amp;news_id=<?= $_GET['id'] ?>" class="btn btn-danger">Supprimer</a></td>
                 </tr>
      
 <?php } $comments->closeCursor(); ?> 

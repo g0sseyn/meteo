@@ -3,6 +3,7 @@ session_start();
 require_once('e:/wamp64/www/meteo/controller/controller.php');
 require_once('e:/wamp64/www/meteo/controller/userController.php');
 require_once('e:/wamp64/www/meteo/controller/postController.php');
+require_once('e:/wamp64/www/meteo/controller/commentController.php');
 try {
 	if (isset($_GET['action'])) {   
 		if ($_GET['action'] == 'home') {
@@ -11,6 +12,8 @@ try {
 			deco();
 		}else if ($_GET['action']=='meteo'){
 			meteo();
+		}else if ($_GET['action']=='singlePost'){
+			singlePost();
 		}else if ($_GET['action']=='inscription'){
 			inscription();
 		}else if ($_GET['action']=='admin'){
@@ -23,6 +26,12 @@ try {
 			deletePost();
 		}else if ($_GET['action']=='updatePost'){
 			updatePost();
+		}else if ($_GET['action']=='updateComment'){
+			updateComment();
+		}else if ($_GET['action']=='deleteComment'){
+			deleteComment();
+		}else if ($_GET['action']=='addComment'){
+			addComment();
 		}
 	}	
 	else {

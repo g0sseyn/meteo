@@ -37,7 +37,7 @@
         </tr>
       </thead>
       <tbody class="commentSignaledTable">              
-        <?php /* while ($com = $signaledComments->fetch()) { ?>    
+        <?php  while ($com = $signaledComments->fetch()) { ?>    
         <tr>
           <td>
             <?= nl2br(htmlspecialchars($com['comment'])); ?>
@@ -71,10 +71,10 @@
             </div>
           </div>
           <td class="center">
-            <a href="deleteComment-<?= $com['id']; ?>" class="btn btn-danger">Supprimer</a>
+            <a href="index.php?action=deleteComment&amp;id=<?= $com['id']; ?>" class="btn btn-danger">Supprimer</a>
           </td>
         </tr>     
-        <?php } $signaledComments->closeCursor(); */?> 
+        <?php } $signaledComments->closeCursor(); ?> 
       </tbody>    
     </table> 
   </div>
