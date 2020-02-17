@@ -1,5 +1,5 @@
 <?php
-require_once('Manager.php');
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'Manager.php';
 
 class PostManager extends Manager 
 {

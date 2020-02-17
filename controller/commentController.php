@@ -1,6 +1,6 @@
 <?php
-require_once('model/PostManager.php');
-require_once('model/CommentManager.php');
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'PostManager.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'CommentManager.php';
 function addComment()
 {   
     if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -54,4 +54,14 @@ function getAllSignaledComments(){
     $commentManager = new CommentManager();
     $signaledComments = $commentManager->getAllSignaledComments();
     return $signaledComments;
+}
+function signalComment(){
+    if (isset($_GET['id'])&&isset($_GET['postId'])){  
+        $commentManager = new CommentManager();
+        $commentManager->signalComment($_GET['id']);
+        header('Location: index.php?action=singlePost&id=' . $_GET['postId']);      
+    }
+    else {
+        header('Location: index.html');
+    }    
 }

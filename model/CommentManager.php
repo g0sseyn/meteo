@@ -1,5 +1,5 @@
 <?php
-require_once('Manager.php');
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'Manager.php';
 class CommentManager extends Manager
 {
 	public function getComments($postId) {
@@ -23,5 +23,9 @@ class CommentManager extends Manager
 	    $comments = $this->db->prepare('INSERT INTO comments(news_id, author, comment, comment_date) VALUES(?, ?, ?, NOW())');
 	    $affectedLines = $comments->execute(array($postId, $author, $comment));
 	    return $affectedLines;
+	}
+	public function signalComment($id){
+		$signalComment = $this->db->prepare('UPDATE comments SET is_signaled = "1" WHERE id = ?');
+		$signalComment->execute(array($id));
 	}
 }

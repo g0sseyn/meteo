@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once('e:/wamp64/www/meteo/controller/controller.php');
-require_once('e:/wamp64/www/meteo/controller/userController.php');
-require_once('e:/wamp64/www/meteo/controller/postController.php');
-require_once('e:/wamp64/www/meteo/controller/commentController.php');
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'controller.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'userController.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'postController.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'commentController.php';
 try {
 	if (isset($_GET['action'])) {   
 		if ($_GET['action'] == 'home') {
@@ -32,6 +32,8 @@ try {
 			deleteComment();
 		}else if ($_GET['action']=='addComment'){
 			addComment();
+		}else if ($_GET['action']=='signalComment'){
+			signalComment();
 		}
 	}	
 	else {

@@ -24,11 +24,11 @@
     <?php if ($comment['is_signaled']=='1') {
        
      ?>
-    <p class="offset-sm-4 col-sm-4 offset-sm-4"><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?>   <a class="btn btn-danger" title="commentaire deja signalé" ><span class="glyphicon glyphicon-ban-circle"></span></a> </p>
+    <p class="offset-sm-4 col-sm-4 offset-sm-4"><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?>   <a class="btn btn-danger" title="commentaire deja signalé" >O</span></a> </p>
     <p class="offset-sm-4 col-sm-4 offset-sm-4"><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
 <?php
 }else { ?>
-    <p class="offset-sm-4 col-sm-4 offset-sm-4"><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?>   <a class="btn btn-success" title="signaler le commentaire" href="index.php?action=signalComment&amp;id=<?= $comment['id'] ?>&amp;postId=<?= $post['id'] ?>"><span class="glyphicon glyphicon-ok-circle"></span></a> </p>
+    <p class="offset-sm-4 col-sm-4 offset-sm-4"><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?>   <a class="btn btn-success" title="signaler le commentaire" href="index.php?action=signalComment&amp;id=<?= $comment['id'] ?>&amp;postId=<?= $post['id'] ?>">X</a> </p>
     <p class="offset-sm-4 col-sm-4 offset-sm-4"><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
 
 
@@ -36,7 +36,7 @@
     <div class="offset-sm-4 col-sm-4 offset-sm-4 container">
     <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post" >
     <div class="form-group">
-        <label for="author" class="col-2 col-form-label">Auteur</label><br />
+        <label for="author" class="col-2 col-form-label">Auteur </label><br />
         <input type="text" id="author" name="author" class="form-control" />
     </div>
     <div class="form-group">

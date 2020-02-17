@@ -1,5 +1,5 @@
 <?php
-require_once('e:/wamp64/www/meteo/model/UserManager.php');
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'UserManager.php';
 function isIdentify(){
     if (isset($_SESSION['id'])){
         return true;

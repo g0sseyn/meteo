@@ -1,5 +1,5 @@
 <?php
-require_once('model/PostManager.php');
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'PostManager.php';
 
 function listPosts(){
     $postManager = new PostManager();

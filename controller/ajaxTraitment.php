@@ -1,22 +1,22 @@
 <?php
 session_start();
 if (!empty($_POST['mail'])){
-  	require_once('e:/wamp64/www/meteo/controller/userController.php');
+  	require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'userController.php';
     $response=validMail($_POST['mail'],$_POST['pass'],$_POST['hidden']);
     echo ($response);
 }; 
 if (!empty($_POST['email'])){
-	require_once('e:/wamp64/www/meteo/controller/userController.php');
+	require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'userController.php';
 	$rep=verifyPass();
 	echo ($rep);
 };
 if (!empty($_GET['town'])) {
-	require_once('e:/wamp64/www/meteo/controller/userController.php');
+	require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'userController.php';
 	$rep=addFav($_GET['town']);
 	echo ($rep);
 }
 if (!empty($_GET['fav'])) {
-	require_once('e:/wamp64/www/meteo/controller/userController.php');
+	require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'userController.php';
 	$rep=giveFav();
 	if (empty($rep)) {
 		return;	
