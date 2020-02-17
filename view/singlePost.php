@@ -33,20 +33,24 @@
 
 
 <?php }} ?>
+<?php if (isIdentify()) {?>
     <div class="offset-sm-4 col-sm-4 offset-sm-4 container">
-    <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post" >
-    <div class="form-group">
-        <label for="author" class="col-2 col-form-label">Auteur </label><br />
-        <input type="text" id="author" name="author" class="form-control" />
+        <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post" >
+            <div class="form-group">
+                <label for="author" class="col-2 col-form-label">auteur </label><br />
+                <input type="text" id="author" name="author" class="form-control" readonly value="<?= $_SESSION['id'] ?>" />
+            </div>
+            <div class="form-group">
+                <label for="comment" class="col-2 col-form-label">Commentaire</label><br />
+                <textarea id="comment" name="comment" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success col-form-label" type="submit">Envoyer</button>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="comment" class="col-2 col-form-label">Commentaire</label><br />
-        <textarea id="comment" name="comment" class="form-control"></textarea>
+<?php }else {?>
+    <div class="offset-sm-4 col-sm-4 offset-sm-4 container">
+        <i>veuillez vous identifiez pour poster un commentaire</i>
     </div>
-    <div class="form-group">
-        <button class="btn btn-success col-form-label" type="submit">Envoyer</button>
-    </div>
-    </form>
-    </div>
-
-<?php $newsContent = ob_get_clean(); ?>
+<?php } $newsContent = ob_get_clean(); ?>

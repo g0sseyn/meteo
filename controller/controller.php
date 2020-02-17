@@ -52,7 +52,8 @@ function adminPost(){
 	require('view/template.php');
 }
 function inscription(){
-	$admin=false;
+	$admin=true;	
+	require('view/nav.php');
 	require('view/formInscription.php');
 	require('view/template.php');
 }

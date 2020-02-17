@@ -7,7 +7,7 @@ function addComment()
         if (empty($_POST['author']) || empty($_POST['comment'])) {
             throw new Exception('Tous les champs ne sont pas remplis !');
         }
-        $commentManager = new CommentManager();
+        $commentManager = new \Adrien\Meteo\Model\CommentManager();
         $affectedLines = $commentManager->postComment($_GET['id'], $_POST['author'], $_POST['comment']);
     }
     else {

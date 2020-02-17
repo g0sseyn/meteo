@@ -16,11 +16,11 @@ function verifyPass(){
     $userManager = new \Adrien\Meteo\Model\UserManager();
     $userInfo = $userManager->userInfo($_POST['email']);
     $isPasswordCorrect = password_verify($_POST['password'], $userInfo['password']);
-    if ($userInfo['is_admin']==1) {
-    	$_SESSION['is_admin']=$userInfo['is_admin'];
-    }   
 	if ($isPasswordCorrect) { 
-	   		$_SESSION['id'] = $userInfo['mail'];	
+		if ($userInfo['is_admin']==1) {
+    		$_SESSION['is_admin']=$userInfo['is_admin'];
+    	} 
+	   	$_SESSION['id'] = $userInfo['mail'];	
 	   		return 'ok';		
 	    }   
 	           
