@@ -2,7 +2,7 @@
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'PostManager.php';
 
 function listPosts(){
-    $postManager = new PostManager();
+    $postManager = new \Adrien\Meteo\Model\PostManager();
     $posts = $postManager->getPosts();
     return $posts;
 }
@@ -11,7 +11,7 @@ function deletePost(){
         throw new Exception('Veuillez vous identifier');
     }
     if (isset($_GET['id']) && $_GET['id'] > 0) {
-	$postManager = new PostManager();	
+	$postManager = new \Adrien\Meteo\Model\PostManager();	
 	$postManager->deletePost($_GET['id']);
     }
 	header('Location: index.php?action=admin');
@@ -23,7 +23,7 @@ function addPost(){
     if (empty($_POST['title']) || empty($_POST['addContent'])) {
         throw new Exception('Tous les champs ne sont pas remplis !');
     }
-    $postManager = new PostManager();
+    $postManager = new \Adrien\Meteo\Model\PostManager();
     $affectedLines = $postManager->addPost($_POST['title'], $_POST['addContent'],$_POST['imgURL']);
 
     if ($affectedLines === false) {
@@ -36,7 +36,7 @@ function updatePost(){
         throw new Exception('Veuillez vous identifier');
     }
     if (isset($_GET['id']) && $_GET['id'] > 0) {
-       $postManager = new PostManager();
+       $postManager = new \Adrien\Meteo\Model\PostManager();
        $postManager->updatePost($_GET['id'],$_POST['title'],$_POST['addContent'],$_POST['imgURL']);
     }
     header('Location: index.php?action=admin');

@@ -13,7 +13,7 @@ function isAdmin(){
     return false;
 }
 function verifyPass(){
-    $userManager = new UserManager();
+    $userManager = new \Adrien\Meteo\Model\UserManager();
     $userInfo = $userManager->userInfo($_POST['email']);
     $isPasswordCorrect = password_verify($_POST['password'], $userInfo['password']);
     if ($userInfo['is_admin']==1) {
@@ -32,7 +32,7 @@ function addFav($town){
 	if (!isIdentify()) {
 		throw new Exception('il faut s\'identifier pour faire cela');		
 	}
-	$userManager = new UserManager();
+	$userManager = new \Adrien\Meteo\Model\UserManager();
 	$userInfo = $userManager->userInfo($_SESSION['id']);
 	if ($town==$userInfo['favori1']||$town==$userInfo['favori2']||$town==$userInfo['favori3']||$town==$userInfo['favori4']||$town==$userInfo['favori5']) {
 		return 'already';
@@ -56,7 +56,7 @@ function validMail($email,$pass,$hidden){
     if (!empty($hidden)) {
     	return 'error';
     }
-	$userManager = new UserManager();	
+	$userManager = new \Adrien\Meteo\Model\UserManager();	
 	if ($userManager->verifyMail($email)) {
 		return 'mail existant';	
 	}
@@ -70,7 +70,7 @@ function giveFav(){
 	if (!isset($_SESSION['id'])) {
 		return;
 	}
-	$userManager = new UserManager();
+	$userManager = new \Adrien\Meteo\Model\UserManager();
     $userInfo = $userManager->userInfo($_SESSION['id']);
     $fav=array();
     for ($i=1; $i < 6 ; $i++) { 

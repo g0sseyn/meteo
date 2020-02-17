@@ -1,5 +1,7 @@
 <?php
+namespace Adrien\Meteo\Model;
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'Manager.php';
+
 class CommentManager extends Manager
 {
 	public function getComments($postId) {

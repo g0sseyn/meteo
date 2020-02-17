@@ -15,8 +15,8 @@ function singlePost(){
 	}
 	$admin=false;
 
-	$postManager = new PostManager();
-	$commentManager = new CommentManager();
+	$postManager = new \Adrien\Meteo\Model\PostManager();
+	$commentManager = new \Adrien\Meteo\Model\CommentManager();
 
 	$post=$postManager->getPost($_GET['id']);
 	$comments = $commentManager->getComments($_GET['id']);  
@@ -41,8 +41,8 @@ function adminPost(){
         throw new Exception('Veuillez vous identifier');
     }
     if (isset($_GET['id'])){
-        $postManager = new PostManager();
-        $commentManager = new CommentManager();
+        $postManager = new \Adrien\Meteo\Model\PostManager();
+        $commentManager = new \Adrien\Meteo\Model\CommentManager();
         $post = $postManager->getPost($_GET['id']);
         $comments = $commentManager->getComments($_GET['id']);        
     }

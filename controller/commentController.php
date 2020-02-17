@@ -24,7 +24,7 @@ function updateComment(){
         throw new Exception('Veuillez vous identifier');
     }   
     if (isset($_GET['id']) && $_GET['id'] > 0) {  
-        $commentManager = new CommentManager();
+        $commentManager = new \Adrien\Meteo\Model\CommentManager();
         $commentManager->updateComment($_GET['id'],$_POST['comment']);        
     }
     if (isset($_GET['news_id'])&&$_GET['news_id']>0){
@@ -38,7 +38,7 @@ function deleteComment(){
         throw new Exception('Veuillez vous identifier');
     }
     if (isset($_GET['id']) && $_GET['id'] > 0) {
-    $commentManager = new CommentManager();
+    $commentManager = new \Adrien\Meteo\Model\CommentManager();
     $commentManager->deleteComment($_GET['id']);
     }  
     if (isset($_GET['news_id'])&&$_GET['news_id']>0){
@@ -51,13 +51,13 @@ function getAllSignaledComments(){
     if (!isAdmin()) {
         throw new Exception('Veuillez vous identifier');
     }
-    $commentManager = new CommentManager();
+    $commentManager = new \Adrien\Meteo\Model\CommentManager();
     $signaledComments = $commentManager->getAllSignaledComments();
     return $signaledComments;
 }
 function signalComment(){
     if (isset($_GET['id'])&&isset($_GET['postId'])){  
-        $commentManager = new CommentManager();
+        $commentManager = new \Adrien\Meteo\Model\CommentManager();
         $commentManager->signalComment($_GET['id']);
         header('Location: index.php?action=singlePost&id=' . $_GET['postId']);      
     }
