@@ -29,6 +29,7 @@ if (isset($_GET['s'])){
 	$results = array();
 	for ($i = 0 ; $i < $dataLen && count($results) < 30 ; $i++) {
 		if (stripos($data[$i]->name, $_GET['s']) === 0) {
+			array_push($results, $data[$i]->name);
 		    array_push($results, $data[$i]->stat->population);
 		    array_push($results, $data[$i]->id); 
 		}
