@@ -1,7 +1,7 @@
 <?php ob_start(); ?>	
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand" id="titleDay" href="index.php?action=meteo"></a>
-  <?php if (isset($admin)&&!$admin) { ?>
+  <?php if (isset($searchTown)&&$searchTown) { ?>
   <div>
 	  <div class="form-inline">
 	    <input class="form-control mr-sm-2" type="text" placeholder="changer de ville" id="search" name="search" autocomplete="off" required list="results" >

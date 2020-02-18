@@ -1,6 +1,31 @@
 tinymce.init({
-    selector: '#addContent'
+    selector: '#addContent',
+    min_height: 300
 });
+$(document).ready(function(){
+	$('#resumeContent').keyup(function(){
+		var nombreCaractere = $(this).val().length;
+		if ((255-nombreCaractere)<0) {
+			$('#caracLeft').html('Trop de caractère !');
+			$('#addNewsBtn').attr('disabled',true).removeClass('btn-primary').addClass('btn-danger');
+		}else {
+			$('#caracLeft').html((255-nombreCaractere)+' restants');
+			$('#addNewsBtn').attr('disabled',false).removeClass('btn-danger').addClass('btn-primary');
+		}
+	})
+})
+$(document).ready(function(){
+	$('#titleContent').keyup(function(){
+		var nombreCaractere = $(this).val().length;
+		if ((150-nombreCaractere)<0) {
+			$('#caracTitleLeft').html('Trop de caractère !');	
+			$('#addNewsBtn').attr('disabled',true).removeClass('btn-primary').addClass('btn-danger');		
+		}else {
+			$('#caracTitleLeft').html((150-nombreCaractere)+' restants');
+			$('#addNewsBtn').attr('disabled',false).removeClass('btn-danger').addClass('btn-primary');
+		}
+	})
+})
 class Meteo {
 	constructor(){
 		this.loc = $('#search').value;
@@ -297,7 +322,7 @@ function favorite(){
 		var favorites = response.responseText.split('|');
 		$('#favoriteTown').html('');
 		if (favorites.length==1&&favorites[0]==['']) { return;}
-		favorites.forEach(element=>$('#favoriteTown').append('<div class="container col-sm-2"><a class="btn btn-primary btn-block favBtn">'+element+'</a></div>'));
+		favorites.forEach(element=>$('#favoriteTown').append('<div class="container col-md-2"><a class="btn btn-info btn-block favBtn">'+element+'</a></div>'));
 		$('.favBtn').click(function(e){
 			apiCall = new ApiCall;
 			apiCall.town=e.currentTarget.textContent;

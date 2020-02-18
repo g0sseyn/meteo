@@ -1,4 +1,5 @@
-<?php ob_start(); ?>   
+<?php ob_start(); ?>  
+<div class="adminContent"> 
   <div class="offset-md-2 col-md-8">
     <a href="index.php?action=adminPost" class="btn btn-primary btn-block">Ajouter un nouvelle article</a>
   </div>
@@ -78,4 +79,5 @@
       </tbody>    
     </table> 
   </div>
+</div>
 <?php $adminContent = ob_get_clean(); ?>

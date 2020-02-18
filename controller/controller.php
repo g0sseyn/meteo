@@ -2,7 +2,7 @@
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'UserManager.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'CommentManager.php';
 function meteo(){
-	$admin=false;
+	$searchTown=true;
 	$posts=listPosts();
 	require('view/nav.php');
 	require('view/allPost.php');
@@ -13,7 +13,7 @@ function singlePost(){
 	if (!isset($_GET['id'])){
 		throw new Exception('identifiant de news incorrect');
 	}
-	$admin=false;
+	$searchTown=true;
 
 	$postManager = new \Adrien\Meteo\Model\PostManager();
 	$commentManager = new \Adrien\Meteo\Model\CommentManager();
@@ -29,7 +29,7 @@ function admin(){
 	if (!isAdmin()) {
         throw new Exception('Veuillez vous identifier');
     } 
-	$admin=true;
+	$searchTown=false;
 	$posts=listPosts();
 	$signaledComments=getAllSignaledComments();
 	require('view/nav.php');
@@ -46,13 +46,13 @@ function adminPost(){
         $post = $postManager->getPost($_GET['id']);
         $comments = $commentManager->getComments($_GET['id']);        
     }
-	$admin=true;
+	$searchTown=false;
 	require('view/nav.php');
 	require('view/adminPost.php');
 	require('view/template.php');
 }
 function inscription(){
-	$admin=true;	
+	$searchTown=false;	
 	require('view/nav.php');
 	require('view/formInscription.php');
 	require('view/template.php');

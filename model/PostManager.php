@@ -5,11 +5,11 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARA
 class PostManager extends Manager 
 {
 	public function getPosts(){
-		$posts = $this->db->query('SELECT id, title_news, content_news, DATE_FORMAT(creation_date_news, \'%d/%m/%Y à %Hh%i\') AS creation_date_news_fr ,img_url FROM news ORDER BY creation_date_news DESC');
+		$posts = $this->db->query('SELECT id, title_news, content_news, DATE_FORMAT(creation_date_news, \'%d/%m/%Y à %Hh%i\') AS creation_date_news_fr ,img_url,abstract_news FROM news ORDER BY creation_date_news DESC');
 		return $posts;
 	}
 	public function getPost($postId){
-		$req = $this->db->prepare('SELECT id, title_news, content_news, DATE_FORMAT(creation_date_news, \'%d/%m/%Y à %Hh%i\') AS creation_date_news_fr ,img_url FROM news WHERE id = ?');
+		$req = $this->db->prepare('SELECT id, title_news, content_news, DATE_FORMAT(creation_date_news, \'%d/%m/%Y à %Hh%i\') AS creation_date_news_fr ,img_url,abstract_news FROM news WHERE id = ?');
     	$req->execute(array($postId));
     	$post = $req->fetch();
     	return $post;
@@ -25,13 +25,13 @@ class PostManager extends Manager
 		}
 		else $this->db->rollBack();
 	}
-	public function addPost($title, $content, $imgURL){		
-	    $news = $this->db->prepare('INSERT INTO news(title_news, content_news, creation_date_news, img_url) VALUES(:title, :content, NOW(),:imgurl )');
-	    $affectedLines = $news->execute(array('title'=>$title,'content'=> $content,'imgurl'=> $imgURL));	   
+	public function addPost($title, $content, $imgURL,$resume){		
+	    $news = $this->db->prepare('INSERT INTO news(title_news, content_news, creation_date_news, img_url,abstract_news) VALUES(:title, :content, NOW(),:imgurl,:resume )');
+	    $affectedLines = $news->execute(array('title'=>$title,'content'=> $content,'imgurl'=> $imgURL,'resume'=>$resume));	   
 	    return $affectedLines;
 	}
-	public function updatePost($id,$title,$content,$imgURL){
-		$updatePost = $this->db->prepare('UPDATE news SET title_news = ?,content_news = ?,img_url = ? WHERE id = ?');
-		$updatePost->execute(array($title, $content, $imgURL,$id));
+	public function updatePost($id,$title,$content,$imgURL,$resume){
+		$updatePost = $this->db->prepare('UPDATE news SET title_news = ?,content_news = ?,img_url = ? ,abstract_news = ? WHERE id = ?');
+		$updatePost->execute(array($title, $content, $imgURL,$resume,$id));
 	}
 }

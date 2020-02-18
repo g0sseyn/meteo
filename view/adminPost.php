@@ -4,18 +4,22 @@ ob_start(); ?>
         <legend id="articlesForm">Modifier un article</legend>
         <div id="newArticleForm">
             <div class="form-group">
-                <label for="title">Titre : </label>        
-                <input type="text" value="<?= nl2br($post['title_news']) ?>" name="title" class="form-control" required/>
+                <label for="title">Titre (150max): <span id="caracTitleLeft"></span></label>        
+                <input id="titleContent" type="text" value="<?= nl2br($post['title_news']) ?>" name="title" class="form-control" required/>
             </div>
             <div class="form-group">
                 <label for="imgURL">URL de l'image associée : </label>        
                 <input type="text" value="<?php if (isset($post['img_url'])) { echo nl2br($post['img_url']); } ?>" name="imgURL" class="form-control" />
             </div>
             <div class="form-group">
-                <label for="addContent">Contenu : </label>
-                <textarea id="addContent" name='addContent' class="form-control" required><?= htmlspecialchars($post['content_news']) ?></textarea>
+                <label for="resumeContent"> extrait de la news (255max) : <span id="caracLeft"></span></label>
+                <textarea id="resumeContent" name='resumeContent' class="form-control" required><?= htmlspecialchars($post['abstract_news']) ?></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Modifier l'article</button>
+            <div class="form-group">
+                <label for="addContent">Contenu : </label>
+                <textarea id="addContent" name='addContent' class="form-control"><?= htmlspecialchars($post['content_news']) ?></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" id="addNewsBtn">Modifier l'article</button>
         </div>
     </form> 
     <div class="offset-md-2 col-md-8 table-responsive">   
@@ -79,18 +83,22 @@ else{ ob_start(); ?>
         <legend id="articlesForm">Ajouter un article</legend>
         <div id="newArticleForm">
             <div class="form-group">
-                <label for="title">Titre : </label>        
-                <input type="text" name="title" class="form-control" required/>
+                <label for="title">Titre (150max): <span id="caracTitleLeft"></span></label>        
+                <input id="titleContent" type="text" name="title" class="form-control" required/>
             </div>
             <div class="form-group">
                 <label for="imgURL">URL de l'image associée : </label>        
                 <input type="text" name="imgURL" class="form-control" />
             </div>
             <div class="form-group">
-                <label for="addContent">Contenu : </label>
-                <textarea id="addContent" name='addContent' class="form-control"></textarea>
+                <label for="resumeContent"> extrait de la news (255max) : <span id="caracLeft"></span> </label>
+                <textarea id="resumeContent" name='resumeContent' class="form-control" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Poster l'article</button>
+            <div class="form-group">
+                <label for="addContent">Contenu : </label>
+                <textarea id="addContent" name='addContent' class="form-control" ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" id="addNewsBtn">Poster l'article</button>
         </div>
     </form>
 <?php $adminContent = ob_get_clean(); } ?>

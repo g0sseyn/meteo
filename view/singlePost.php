@@ -1,17 +1,18 @@
 <?php ob_start(); ?>
-
-    <div class="news offset-sm-2 col-sm-8 center">
+<div class="singleNews ">
+    <div class="offset-sm-1 col-sm-10">
         <h3>
             <a href="index.php?action=singlePost&id=<?= $post['id'] ?>"><?= htmlspecialchars($post['title_news']); ?></a>
             <br/>
-            <em>le <?= $post['creation_date_news_fr'] ?></em>
+            <em class="date_news">le <?= $post['creation_date_news_fr'] ?></em>
         </h3>
         <?php if (isset($post['img_url'])&&$post['img_url']!=='0') { ?>       
-            <div class="image"><img src="<?= $post['img_url']?>"></div>
+            <div class="imageSingle center"><img src="<?= $post['img_url']?>"></div>
         <?php ;} ?>
             
-       
-        <?= nl2br($post['content_news']) ?>
+        <div>
+            <?= nl2br($post['content_news']) ?>
+        </div>
         
     </div>
 
@@ -52,5 +53,7 @@
 <?php }else {?>
     <div class="offset-sm-4 col-sm-4 offset-sm-4 container">
         <i>veuillez vous identifiez pour poster un commentaire</i>
-    </div>
-<?php } $newsContent = ob_get_clean(); ?>
+    </div>    
+<?php } ?>
+</div>
+<?php $newsContent = ob_get_clean(); ?>

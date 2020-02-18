@@ -61,7 +61,7 @@
 		</div>
 	</div>
 </div>
-<div id="content" class="">	
+<div id="content" class="col-md-6">	
 	<?php if (isset($newsContent)) {
 		echo $newsContent;
 	} ?>

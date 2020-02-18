@@ -1,5 +1,9 @@
 body {
-	background-color: rgba(133, 138, 242, 1) !important;
+	background-color: rgba(188, 205, 205, 1) !important;
+}
+h3 {
+	font-size: 1.55rem !important;
+	line-height: 1 !important;
 }
 .blocForm {
 	margin-left: 10%;
@@ -200,9 +204,10 @@ body {
 /*bloc content*/
 #content{
 	margin-top: 30px;
-	min-width: 600px;
+	margin-left: auto;
+	min-width: 800px;
 	background-color: white;
-	padding: 0 15px;
+	padding: 0;
 	border:2px solid black;
 	border-radius: 10px;
 	overflow: hidden;
@@ -232,4 +237,94 @@ hr {
 }
 #errorTown {
 	margin-bottom: 0;
+}
+#favoriteTown {
+	margin-left: 0;
+	margin-right: 0;
+}
+/*articles*/
+.imageNews img{
+	width: 300px;
+	margin: 0px;
+}
+.imageNews {
+	float: left;
+	width: auto;
+	margin: 0px 20px 35px 20px;
+}
+.news {
+	background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(229, 245, 245, 1)), to(rgba(188, 205, 205, 1)));
+	padding-top: 20px;
+}
+.date_news {
+	font-size: 11px;
+}
+.resume {
+	height: 242px;
+	margin-right: 10px;
+}
+.abstract {
+	margin-left: 315px;
+	line-height: 1.4;
+}
+.imageNews:hover {
+	border-bottom:2px solid #81e6e8;
+}
+/*single article*/
+.imageSingle img {
+	width: 100%;
+}
+.singleNews {
+	background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(229, 245, 245, 1)), to(rgba(188, 205, 205, 1)));
+}
+/* RESPONSIVE */
+@media all and (max-width: 1464px) {
+	#meteoDiv {
+		float:none;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 20px;
+		position: relative;
+	}
+	#content {
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+@media all and (max-width: 830px) {
+	#principalBloc {
+		padding: 0;
+	}
+}
+@media all and (max-width: 800px) {
+	.imageNews img {
+		width: 200px;
+	}
+
+	.imageNews {		
+		margin-right: 0;
+		margin-top: 0;
+	}
+	.news {
+		padding-top: 20px;
+	}
+	.resume h3 {
+		font-size: 1.1rem !important;
+		line-height: 1 !important;
+	}
+	.abstract {
+		margin-left: 230px;
+		line-height: 1;
+	}
+	.resume {
+		height: 200px;
+		margin-right: 5px;
+	}
+	#content {
+		min-width: 600px;
+		max-width: none;
+	}
+	.favBtn {
+		font-size: 12px !important ;
+	}
 }

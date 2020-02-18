@@ -20,11 +20,11 @@ function addPost(){
     if (!isAdmin()) {
         throw new Exception('Veuillez vous identifier');
     }
-    if (empty($_POST['title']) || empty($_POST['addContent'])) {
+    if (empty($_POST['title']) || empty($_POST['addContent']) || empty($_POST['resumeContent'])) {
         throw new Exception('Tous les champs ne sont pas remplis !');
     }
     $postManager = new \Adrien\Meteo\Model\PostManager();
-    $affectedLines = $postManager->addPost($_POST['title'], $_POST['addContent'],$_POST['imgURL']);
+    $affectedLines = $postManager->addPost($_POST['title'], $_POST['addContent'],$_POST['imgURL'],$_POST['resumeContent']);
 
     if ($affectedLines === false) {
         throw new Exception('Impossible d\'ajouter l\'article !');
@@ -37,7 +37,7 @@ function updatePost(){
     }
     if (isset($_GET['id']) && $_GET['id'] > 0) {
        $postManager = new \Adrien\Meteo\Model\PostManager();
-       $postManager->updatePost($_GET['id'],$_POST['title'],$_POST['addContent'],$_POST['imgURL']);
+       $postManager->updatePost($_GET['id'],$_POST['title'],$_POST['addContent'],$_POST['imgURL'],$_POST['resumeContent']);
     }
     header('Location: index.php?action=admin');
 }
