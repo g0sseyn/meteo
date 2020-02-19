@@ -67,5 +67,5 @@
 	} ?>
 </div>
 </div>
-<script type="text/javascript">$(function() {geoCall()});</script>
+<script type="text/javascript">$(function() {call("<?php if (isset($_SESSION['defautTown'])) {echo $_SESSION['defautTown'];} ?>")});</script>
 <?php $meteoComplete = ob_get_clean(); ?>

@@ -57,3 +57,9 @@ function inscription(){
 	require('view/formInscription.php');
 	require('view/template.php');
 }
+function parametre(){
+	$searchTown=false;	
+	require('view/nav.php');
+	require('view/parametre.php');
+	require('view/template.php');
+}

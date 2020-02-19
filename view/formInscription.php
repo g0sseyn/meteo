@@ -3,7 +3,7 @@
 
 	<form onsubmit='return false;' class="my-2 my-lg-0 col-sm-offset-4 col-sm-4 container formInscription">		
 		<div class="form-group">
-    	<label for="inputEmai1">Adresse Email</label>
+    	<label for="inputEmail">Adresse Email</label>
     	<input type="email" id="inputEmail" class="form-control" name="inputEmail" aria-describedby="emailHelp" placeholder="Email" required>   
 
   	</div>

@@ -1,4 +1,15 @@
-
+function call(town){
+	if (town) {
+		if (town=='geolocalisation') {
+			geoCall();
+		}else {
+			apiCall = new ApiCall;
+			apiCall.town=town;
+			apiCall.byTown();
+		}
+	}
+	else geoCall();
+}
 $('#changeBtn').click(function(){
 	apiCall = new ApiCall;
 	apiCall.town=$('#search')[0].value;
@@ -35,7 +46,7 @@ class ApiCall {
 		$.get('http://api.openweathermap.org/data/2.5/forecast?q='+this.town+'&lang=fr&APPID=94aeaac607f35f0321198d06698d24a6',data=>{
 			$('#errorTown').html('');
 			this.responseFiveDays = data;
-			meteo = new MeteoCompleteFiveDays ;
+			var meteo = new MeteoCompleteFiveDays ;
 		}).fail(function(){
 			$('#errorTown').html('Ville inconnu, veuillez recommencer ');
 		})
@@ -43,7 +54,7 @@ class ApiCall {
 	byLocation(){	
 		$.get('http://api.openweathermap.org/data/2.5/forecast?lat='+this.lat+'&lon='+this.lon+'&lang=fr&APPID=94aeaac607f35f0321198d06698d24a6',data=>{
 			this.responseFiveDays = data;
-			meteo = new MeteoCompleteFiveDays ;
+			var meteo = new MeteoCompleteFiveDays ;
 		})
 	}
 }
@@ -98,7 +109,7 @@ class MeteoCompleteFiveDays {
 		$('#temperatureValue').html(Math.round((parseInt($('#temperatureValue').html())-32)*5/9));
 	}
 	showDay1(){		
-		meteo = new MeteoComplete;
+		var meteo = new MeteoComplete;
 		meteo.response= [this.response.list[8-this.decalage-4],this.response.list[8-this.decalage-3],this.response.list[8-this.decalage-2],this.response.list[8-this.decalage-1],this.response.list[8-this.decalage],this.response.list[8-this.decalage+1],this.response.list[8-this.decalage+2],this.response.list[8-this.decalage+3]];		
 		if (this.tempUnity=='celsius') {
 			meteo.tempUnity='celsius'
@@ -107,7 +118,7 @@ class MeteoCompleteFiveDays {
 		$('#chart_div').css({'transform' : 'translateX(-'+this.translate+'px)'});	
 	}
 	showDay2(){		
-		meteo = new MeteoComplete;
+		var meteo = new MeteoComplete;
 		meteo.response= [this.response.list[16-this.decalage-4],this.response.list[16-this.decalage-3],this.response.list[16-this.decalage-2],this.response.list[16-this.decalage-1],this.response.list[16-this.decalage],this.response.list[16-this.decalage+1],this.response.list[16-this.decalage+2],this.response.list[16-this.decalage+3]];
 		if (this.tempUnity=='celsius') {
 			meteo.tempUnity='celsius'
@@ -116,7 +127,7 @@ class MeteoCompleteFiveDays {
 		$('#chart_div').css({'transform' : 'translateX(-'+(this.translate+562)+'px)'});	
 	}
 	showDay3(){		
-		meteo = new MeteoComplete;
+		var meteo = new MeteoComplete;
 		meteo.response= [this.response.list[24-this.decalage-4],this.response.list[24-this.decalage-3],this.response.list[24-this.decalage-2],this.response.list[24-this.decalage-1],this.response.list[24-this.decalage],this.response.list[24-this.decalage+1],this.response.list[24-this.decalage+2],this.response.list[24-this.decalage+3]];
 		if (this.tempUnity=='celsius') {
 			meteo.tempUnity='celsius'
@@ -125,7 +136,7 @@ class MeteoCompleteFiveDays {
 		$('#chart_div').css({'transform' : 'translateX(-'+(this.translate+1124)+'px)'});			
 	}
 	showDay4(){		
-		meteo = new MeteoComplete;
+		var meteo = new MeteoComplete;
 		meteo.response= [this.response.list[32-this.decalage-4],this.response.list[32-this.decalage-3],this.response.list[32-this.decalage-2],this.response.list[32-this.decalage-1],this.response.list[32-this.decalage],this.response.list[32-this.decalage+1],this.response.list[32-this.decalage+2],this.response.list[32-this.decalage+3]];
 		if (this.tempUnity=='celsius') {
 			meteo.tempUnity='celsius'

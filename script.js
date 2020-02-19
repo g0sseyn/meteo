@@ -26,63 +26,6 @@ $(document).ready(function(){
 		}
 	})
 })
-class Meteo {
-	constructor(){
-		this.loc = $('#search').value;
-		this.resetMeteo();
-	}
-	resetMeteo(){
-		$('#meteo').html('');
-		$('#cloud').html('');
-		$('#temperature').html('');
-		$('#humidity').html('');
-		$('#pressure').html('');
-		$('#cloudiness').html('');
-		$('#windspeed').html('');
-		$('#winddeg').html('');
-		$('#coord').html('');
-		$('#sunrise').html('');
-		$('#sunset').html('');
-	}
-	showMeteo(id){
-		$.get('http://api.openweathermap.org/data/2.5/weather?q='+id+'&lang=fr&APPID=94aeaac607f35f0321198d06698d24a6',function (reponse) {
-			$('#meteo').append('<p> météo pour la ville de: '+reponse.name+'</p>');	
-			$('#cloud').append('<p> couverture nuageuse: '+reponse.clouds.all+'</p>');	
-			$('#temperature').append('<p> temperature moyenne: '+Math.round((reponse.main.temp-273.15)*10)/10+'°C</p><p> temperature minimum: '
-				+Math.round((reponse.main.temp_min-273.15)*10)/10+'°C</p><p> temperature maximum: '
-				+Math.round((reponse.main.temp_max-273.15)*10)/10+'°C</p><p> temperature ressenti: '
-				+Math.round((reponse.main.feels_like-273.15)*10)/10+'°C</p>');
-			$('#humidity').append("<p> taux d'humidité: "+reponse.main.humidity+"</p>");
-			$('#pressure').append('<p> pression atmosphérique: '+reponse.main.pressure+'</p>');
-			$('#cloudiness').append('<p> description général: '+reponse.weather[0].description+'</p>');
-			$('#windspeed').append('<p> vitesse du vent: '+(Math.round(reponse.wind.speed*3600/1000))+'km/h</p>');
-			$('#winddeg').append('<p> orientation du vent: '+reponse.wind.deg+'</p>');
-			$('#coord').append('<p> latitude: '+reponse.coord.lat+'</p><p> longitude: '+reponse.coord.lon);
-		}).fail(function(){
-			alert('erreur');
-		});
-	}
-	showSun(id){
-		$.get('http://api.openweathermap.org/data/2.5/weather?q='+id+'&lang=fr&APPID=94aeaac607f35f0321198d06698d24a6',function (reponse) {
-			var sunrisehour = new Date(reponse.sys.sunrise*1000).getHours();
-			var sunriseminute = new Date(reponse.sys.sunrise*1000).getMinutes();
-			var sunsethour = new Date(reponse.sys.sunset*1000).getHours();
-			var sunsetminute = new Date(reponse.sys.sunset*1000).getMinutes();
-			if (sunriseminute<10) {
-				$('#sunrise').append('<p> levé du soleil à: '+sunrisehour+'H0'+sunriseminute+'</p>');
-			}else {
-				$('#sunrise').append('<p> levé du soleil à: '+sunrisehour+'H'+sunriseminute+'</p>');
-			}
-			if (sunsetminute<10) {
-				$('#sunset').append('<p> couché du soleil à: '+sunsethour+'H0'+sunsetminute+'</p>');
-			}else {
-				$('#sunset').append('<p> couché du soleil à: '+sunsethour+'H'+sunsetminute+'</p>');
-			}
-		});
-	}	
-}
-var meteo = new Meteo;
-
 class complementation {
 	constructor(){
 		this.chosenLoc;
@@ -254,15 +197,6 @@ function displayResults(response) { // Affiche les résultats d'une requête
     	console.log(response);
 	
 	}
-/*$('.formInscriptionBtn').click(function clickbtn(){
-	var mail=$('#inputEmail').val();
-	var pass=$('#inputPassword').val();
-	console.log('click');
-	$('.inscription').load('view/formInscription.php',{ mail:mail, pass:pass},function(){
-		$('.formInscription').show();
-		$('.formInscriptionBtn').click(clickbtn);
-	});
-});*/
 $('.formInscriptionBtn').click(function(){
 	$('#error').html('');
 	var mail=$('#inputEmail').val();
@@ -270,7 +204,6 @@ $('.formInscriptionBtn').click(function(){
 	var hidden=$('#hidden').val();
 	var response=$.post('controller/ajaxTraitment.php', { mail:mail,pass:pass,hidden:hidden},function(data) {
      if (response.responseText=='mail existant') {
-     	/*$('#error').html('<small id=\'connect\'>mail existant,voulez-vous vous connectez ?</small><script type="text/javascript">$(\'#connect\').click(function(){$(\'.free\').animate({height:"0",margin:"0"},1000,function(){$(\'.free\').hide();});$(\'.inscription\').animate({height:"0",margin:"0",width:"0"},1000,function(){$(\'.inscription\').hide();});$(\'.connection\').show().animate({width:"90%",height:"400px",margin:"2em"},1500,function(){$(\'.titleConnection\').hide(500);$(\'.formConnection\').show(500);});$(\'.connection\').off(\'click\');})</script>')*/
      	$('#error').html('<small>mail existant,veuillez vous connectez sur la page principal  <a href="index.php?action=meteo">ici</a></small><p><small>ou recommencez avec un autre mail</small></p>');
      }else if (response.responseText=='error') {
      	$('#error').html('<small>erreur : rechargez la page et recommencez</small>');
@@ -279,12 +212,10 @@ $('.formInscriptionBtn').click(function(){
      }else if (response.responseText=='mail non valide'){
      	$('#error').html('<small>mail non valide</small>');
      }else if (response.responseText=='ok'){
-     	/*$('.free').animate({height:"0",margin:"0"},1000,function(){$('.free').hide();});$('.inscription').animate({height:"0",margin:"0",width:"0"},1000,function(){$('.inscription').hide();});$('.connection').show().animate({width:"90%",height:"400px",margin:"2em"},1500,function(){$('.titleConnection').hide(500);$('.formConnection').show(500);});$('.connection').off('click');*/
      	$('#error').html('<p>Vous êtes bien inscris, vous allez être rediriger sur la page d\'accueil</p><p>veuillez vous connecter sur celle-ci</p>');
      	setTimeout(function(){
      		window.location.href = 'index.php?action=meteo';
      	},5000);
-     	/*window.location.href = 'index.php?action=meteo';*/
      }
    },'text');	
 })
@@ -331,3 +262,64 @@ function favorite(){
 	})
 }
 favorite();
+function parametreFavorite(){
+	var response=$.get('controller/ajaxTraitment.php?fav=1',function(data){
+		var favorites= response.responseText.split('|');
+		if (favorites.length==1&&favorites[0]==['']) { return;}
+		favorites.forEach(element=>$('#choiceFavoriteTown').append('<div class="btn btn-info"><input type="radio" id="'+element+'Defaut" name="defautTown" value="'+element+'"><label for="'+element+'Defaut">'+element+'</label></div>'));
+	})
+}
+parametreFavorite();
+$('#defautTownBtn').click(function(){
+	$('#messageDefautTown').hide().html()
+	var defautTown=$('input:checked').val();
+	var response=$.get('controller/ajaxTraitment.php',{defautTown:defautTown},function(data){
+		if (response.responseText==='ok') {
+			$('#messageDefautTown').css('display','inline-block').html('votre nouvelle ville Météo par defaut est : '+defautTown)
+		}else $('#messageDefautTown').show().html('erreur: nous n\'avons pas pus changer votre ville par defaut');
+	})
+})
+$('#newPassBtn').click(function(){
+	$('#newPassMsg').html('');
+	var mail=$('#inputEmail').val();
+	var actualPass=$('#actualPassword').val();
+	var newPassOne=$('#newPassword1').val();
+	var newPassTwo=$('#newPassword2').val();
+	if (mail==''||actualPass==''||newPassOne==''||newPassTwo=='') {
+		$('#newPassMsg').html('tout les champs doivent être rempli');
+		return;
+	}
+	if (newPassOne!==newPassTwo) {
+		$('#newPassMsg').html('Vos deux mots de passe doivent être identique');
+		return;
+	}
+	var response=$.post('controller/ajaxTraitment.php',{email:mail,password:actualPass,newPass:newPassOne},function(data){
+		if (response.responseText=='ok') {
+			var resp=$.post('controller/ajaxTraitment.php',{identifiant:mail,password:newPassOne},function(data){
+				if (resp.responseText=='ok') {
+					$('#newPassMsg').html('Mot de passe bien mis a jour');
+				}else {
+					$('#newPassMsg').html('Votre mot de passe n\'a pas pus être mis a jour');
+				}
+			})
+		}else $('#newPassMsg').html('votre mot de passe actuel n\'est pas bon');
+	})
+
+})
+$('#pseudoBtn').click(function(){
+	var pseudo=$('#pseudo').val();
+	$('#pseudoMsg').html();
+	if (pseudo=='') {
+		$('#pseudoMsg').html('erreur : veuillez rentrer un pseudo');
+		return;
+	}else {
+		var response=$.get('controller/ajaxTraitment.php',{pseudo:pseudo},function(){
+			if (response.responseText=='ok') {
+				$('#pseudoMsg').html('parfait : votre pseudo a bien été mis a jour');
+			}else {
+				$('#pseudoMsg').html('erreur : veuillez recommencez plus tard !');
+			}			
+		})
+	}
+
+})

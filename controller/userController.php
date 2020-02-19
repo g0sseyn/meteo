@@ -20,7 +20,9 @@ function verifyPass(){
 		if ($userInfo['is_admin']==1) {
     		$_SESSION['is_admin']=$userInfo['is_admin'];
     	} 
-	   	$_SESSION['id'] = $userInfo['mail'];	
+	   	$_SESSION['id'] = $userInfo['mail'];
+	   	$_SESSION['defautTown']	= $userInfo['defautTown'];
+	   	$_SESSION['pseudo']	= $userInfo['identifiant'];
 	   		return 'ok';		
 	    }   
 	           
@@ -79,4 +81,42 @@ function giveFav(){
     	}
     }
     return $fav;
+}
+function defautTown($town){
+	if (!isIdentify()) {
+		throw new Exception('il faut s\'identifier pour faire cela');		
+	}
+	$userManager = new \Adrien\Meteo\Model\UserManager();
+	$rep = $userManager->addTown($town,$_SESSION['id']);
+	if ($rep) {
+		$_SESSION['defautTown']=$town;
+		return 'ok';
+	}else return 'wrong';
+}
+function updatePass(){
+	if (!isIdentify()) {
+		throw new Exception('il faut s\'identifier pour faire cela');		
+	}
+	if ((!isset($_POST['identifiant']))||(!isset($_POST['password']))) {
+		throw new Exception("erreur : veuillez recommencez");		
+	}
+	$userManager = new \Adrien\Meteo\Model\UserManager();
+	$rep = $userManager->updatePass($_POST['identifiant'],password_hash($_POST['password'], PASSWORD_DEFAULT));
+	if ($rep) {
+		return 'ok';
+	}else return 'wrong';
+}
+function addPseudo(){
+	if (!isIdentify()) {
+		throw new Exception('il faut s\'identifier pour faire cela');		
+	}
+	if (!isset($_GET['pseudo'])) {
+		throw new Exception("erreur : veuillez recommencez");		
+	}
+	$userManager = new \Adrien\Meteo\Model\UserManager();
+	$rep=$userManager->addPseudo($_GET['pseudo'],$_SESSION['id']);
+	if ($rep) {
+		$_SESSION['pseudo']=$_GET['pseudo'];
+		return 'ok';
+	}else return 'wrong';
 }

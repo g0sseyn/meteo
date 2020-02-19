@@ -277,6 +277,34 @@ hr {
 .singleNews {
 	background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(229, 245, 245, 1)), to(rgba(188, 205, 205, 1)));
 }
+/*parametre*/
+#choiceFavoriteTown {
+	display: flex;
+	justify-content: space-around;
+}
+#messageDefautTown {
+	margin-top: 30px;
+	background-color: white;
+	display: inline-block;
+	border-radius: 10px;
+	padding: 5px;
+	display: none;
+}
+#defautTownBtn {
+	margin-top: 20px;
+}
+.formFavoriteTown {
+	margin-bottom: 45px;
+}
+#newPassMsg {
+	color:red;
+	font-style: italic;
+}
+#pseudoMsg {
+	color:red;
+	font-style: italic;
+	margin: auto;
+}
 /* RESPONSIVE */
 @media all and (max-width: 1464px) {
 	#meteoDiv {

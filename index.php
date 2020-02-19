@@ -34,6 +34,8 @@ try {
 			addComment();
 		}else if ($_GET['action']=='signalComment'){
 			signalComment();
+		}else if ($_GET['action']=='parametre'){
+			parametre();
 		}
 	}	
 	else {

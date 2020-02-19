@@ -4,15 +4,30 @@ if (!empty($_POST['mail'])){
   	require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'userController.php';
     $response=validMail($_POST['mail'],$_POST['pass'],$_POST['hidden']);
     echo ($response);
-}; 
+}
 if (!empty($_POST['email'])){
 	require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'userController.php';
 	$rep=verifyPass();
 	echo ($rep);
-};
+}
+if (!empty($_POST['identifiant'])){
+	require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'userController.php';
+	$rep=updatePass();
+	echo ($rep);
+}
 if (!empty($_GET['town'])) {
 	require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'userController.php';
 	$rep=addFav($_GET['town']);
+	echo ($rep);
+}
+if (!empty($_GET['pseudo'])) {
+	require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'userController.php';
+	$rep=addPseudo($_GET['pseudo']);
+	echo ($rep);
+}
+if (!empty($_GET['defautTown'])) {
+	require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'userController.php';
+	$rep=defautTown($_GET['defautTown']);
 	echo ($rep);
 }
 if (!empty($_GET['fav'])) {

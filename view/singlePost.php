@@ -39,7 +39,7 @@
         <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post" >
             <div class="form-group">
                 <label for="author" class="col-2 col-form-label">auteur </label><br />
-                <input type="text" id="author" name="author" class="form-control" readonly value="<?= $_SESSION['id'] ?>" />
+                <input type="text" id="author" name="author" class="form-control" readonly value="<?= $_SESSION['pseudo'] ?>" />
             </div>
             <div class="form-group">
                 <label for="comment" class="col-2 col-form-label">Commentaire</label><br />
