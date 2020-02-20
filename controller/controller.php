@@ -4,10 +4,10 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARA
 function meteo(){
 	$searchTown=true;
 	$posts=listPosts();
-	require('view/nav.php');
-	require('view/allPost.php');
-	require('view/meteoComplete.php');
-	require('view/template.php');
+	require('view/frontend/nav.php');
+	require('view/frontend/allPost.php');
+	require('view/frontend/meteoComplete.php');
+	require('view/frontend/template.php');
 }
 function singlePost(){
 	if (!isset($_GET['id'])){
@@ -20,10 +20,10 @@ function singlePost(){
 
 	$post=$postManager->getPost($_GET['id']);
 	$comments = $commentManager->getComments($_GET['id']);  
-	require('view/nav.php');
-	require('view/singlePost.php');
-	require('view/meteoComplete.php');
-	require('view/template.php');
+	require('view/frontend/nav.php');
+	require('view/frontend/singlePost.php');
+	require('view/frontend/meteoComplete.php');
+	require('view/frontend/template.php');
 }
 function admin(){
 	if (!isAdmin()) {
@@ -32,9 +32,9 @@ function admin(){
 	$searchTown=false;
 	$posts=listPosts();
 	$signaledComments=getAllSignaledComments();
-	require('view/nav.php');
-	require('view/admin.php');
-	require('view/template.php');
+	require('view/frontend/nav.php');
+	require('view/backend/admin.php');
+	require('view/frontend/template.php');
 }
 function adminPost(){
 	if (!isAdmin()) {
@@ -47,19 +47,19 @@ function adminPost(){
         $comments = $commentManager->getComments($_GET['id']);        
     }
 	$searchTown=false;
-	require('view/nav.php');
-	require('view/adminPost.php');
-	require('view/template.php');
+	require('view/frontend/nav.php');
+	require('view/backend/adminPost.php');
+	require('view/frontend/template.php');
 }
 function inscription(){
 	$searchTown=false;	
-	require('view/nav.php');
-	require('view/formInscription.php');
-	require('view/template.php');
+	require('view/frontend/nav.php');
+	require('view/frontend/formInscription.php');
+	require('view/frontend/template.php');
 }
 function parametre(){
 	$searchTown=false;	
-	require('view/nav.php');
-	require('view/parametre.php');
-	require('view/template.php');
+	require('view/frontend/nav.php');
+	require('view/frontend/parametre.php');
+	require('view/frontend/template.php');
 }

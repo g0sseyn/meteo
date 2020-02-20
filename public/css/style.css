@@ -1,0 +1,358 @@
+body {
+	background-color: rgba(188, 205, 205, 1) !important;
+}
+h3 {
+	font-size: 1.55rem !important;
+	line-height: 1 !important;
+}
+.blocForm {
+	margin-left: 10%;
+	width: 80%;
+	height: auto;
+	flex-wrap: wrap;
+	display: flex;
+	justify-content: center;
+}
+.bloc {
+	text-align: center;
+	width:35%;
+	color:white;
+	font-size: 2em;
+	box-shadow: 5px 5px 10px 0 #c0c0c0;
+	border:2px solid black;
+	border-radius: 10px;
+	height: 400px;	
+	background-color: rgba(242, 214, 75, 0.8);	
+
+}
+.bloc:hover {
+	cursor: pointer;
+	background-color: rgba(242, 214, 75, 1);
+}
+.inscription {	
+	margin: 2em;
+}
+.connection{
+	margin: 2em;
+}
+.flex {
+	display: flex;
+}
+.free{
+	margin: 2em;
+	position: relative;
+}
+.meteoForm {
+	display: none;
+}
+.formConnection {
+	display: none;
+}
+.formConnectionBtn {
+}
+.formInscription {
+}
+.townBtn {
+	position: absolute;
+	top: 85%;
+	left: 47%;
+}
+#resultMeteo {
+	display: none;
+}
+#meteo {
+	border: 1px solid black;
+	border-radius: 10px;
+	text-align: center;
+	color: white;
+	margin:0 5%;
+}
+#infoMeteo {
+	text-align: center;
+	border: 1px solid black;
+	border-radius: 10px;
+	margin:0 5%;
+}
+#id {
+	display: none;
+}
+/* Color Theme Swatches in Hex */
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-1-hex { color: #2405F2; } 
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-2-hex { color: #1D04BF; }
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-3-hex { color: #07038C; }
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-4-hex { color: #858BF2; }
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-5-hex { color: #F2D64B; }
+
+/* Color Theme Swatches in RGBA */
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-1-rgba { color: rgba(36, 4, 242, 1); }
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-2-rgba { color: rgba(28, 3, 191, 1); }
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-3-rgba { color: rgba(7, 2, 140, 1); }
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-4-rgba { color: rgba(133, 138, 242, 1); }
+.Digital-information-board-with-the-schedule-of-flights-at-the-airport-5-rgba { color: rgba(242, 214, 75, 1); }
+
+/*bloc météo*/
+#meteoDiv{
+	height: 500px;
+	width: 600px;
+	background-color: white;
+	padding: 0 15px;
+	border:2px solid black;
+	border-radius: 10px;
+	overflow: hidden;
+	float:right;
+	margin-left: 15px;
+}
+#loc {
+	font-size: x-large ;
+	display: inline-block;
+	min-width: 55%;
+}
+#day {
+	font-size: medium;
+}
+#weather {
+	font-size: medium;
+}
+#icon {
+	float: left;
+}
+#temperatureHead {
+	float: left;
+	padding-left: 10px;
+}
+#temperatureValue {
+	float: left;
+	margin-top: -5px;
+	font-size: 64px;
+}
+#temperatureUnit {
+	float: left;
+	font-size: 16px;
+	margin-top: 17px;
+}
+#blocInfo{
+	float: right;
+	padding-left: 5px;
+	line-height: 22px;
+	padding-top: 2px;
+	min-width: 43%;
+}
+#blocInfoBtn{
+	height: 23px;
+	padding:15px 0 9px;
+}
+#tempGraph,#windGraph,#rainGraph {
+	font-size: 12px;
+}
+#windGraph {
+	padding: 6px 20px;
+}
+#meteoNextDays{
+	margin-bottom: -1px;
+	padding: 0;
+	padding-bottom: 1px;
+	position: relative;
+	top: 37%;
+	right: -3%;
+}
+.day{
+	display: inline-block;;
+	line-height: 1;
+	text-align: center;	
+	cursor: pointer;
+	height: 90px;
+	width: 73px;
+	margin: auto;
+}
+.day:hover{
+	background-color:#b9c3cc80;
+}
+.day img {
+	position: relative;
+	left: -20%;
+	top: -45%;
+}
+.weekTemp{
+	position: relative;
+	top: -50%;
+	color: #878787;
+}
+.weekTempMin{
+	color: #4eaad7 ;
+}
+.weekTempMax{
+	color:#e85c5c;
+}
+#chart_div{
+	position:relative;
+	top: 33%;
+	width: 2830px;
+	transition: transform 300ms ease-in-out 0s;
+}
+.arrow {
+  border: none;
+  position: absolute;
+}
+/* Gestion celsius->fahrenheit */
+#fahrenheit:hover {
+	color:blue;
+	cursor: pointer;
+}
+#fav {
+	display: none;
+}
+/*bloc content*/
+#content{
+	margin-top: 30px;
+	margin-left: auto;
+	min-width: 800px;
+	background-color: white;
+	padding: 0;
+	border:2px solid black;
+	border-radius: 10px;
+	overflow: hidden;
+}
+#principalBloc{
+}
+hr {
+	width: 40%;
+}
+/*menu nav*/
+.smallfont {
+	font-size: 11px;
+}
+.center {
+	text-align: center;
+}
+#formDeco {
+	position: relative;	
+	top: 15px;
+}
+#errorConnection {
+	display: inline;
+}
+#linkInscription {
+	display: inline;
+	float: right;
+}
+#errorTown {
+	margin-bottom: 0;
+}
+#favoriteTown {
+	margin-left: 0;
+	margin-right: 0;
+}
+/*articles*/
+.imageNews img{
+	width: 300px;
+	margin: 0px;
+}
+.imageNews {
+	float: left;
+	width: auto;
+	margin: 0px 20px 35px 20px;
+}
+.news {
+	background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(229, 245, 245, 1)), to(rgba(188, 205, 205, 1)));
+	padding-top: 20px;
+}
+.date_news {
+	font-size: 11px;
+}
+.resume {
+	height: 242px;
+	margin-right: 10px;
+}
+.abstract {
+	margin-left: 315px;
+	line-height: 1.4;
+}
+.imageNews:hover {
+	border-bottom:2px solid #81e6e8;
+}
+/*single article*/
+.imageSingle img {
+	width: 100%;
+}
+.singleNews {
+	background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(229, 245, 245, 1)), to(rgba(188, 205, 205, 1)));
+}
+/*parametre*/
+#choiceFavoriteTown {
+	display: flex;
+	justify-content: space-around;
+}
+#messageDefautTown {
+	margin-top: 30px;
+	background-color: white;
+	display: inline-block;
+	border-radius: 10px;
+	padding: 5px;
+	display: none;
+}
+#defautTownBtn {
+	margin-top: 20px;
+}
+.formFavoriteTown {
+	margin-bottom: 45px;
+}
+#newPassMsg {
+	color:red;
+	font-style: italic;
+}
+#pseudoMsg {
+	color:red;
+	font-style: italic;
+	margin: auto;
+}
+/* RESPONSIVE */
+@media all and (max-width: 1464px) {
+	#meteoDiv {
+		float:none;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 20px;
+		position: relative;
+	}
+	#content {
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+@media all and (max-width: 830px) {
+	#principalBloc {
+		padding: 0;
+	}
+}
+@media all and (max-width: 800px) {
+	.imageNews img {
+		width: 200px;
+	}
+
+	.imageNews {		
+		margin-right: 0;
+		margin-top: 0;
+	}
+	.news {
+		padding-top: 20px;
+	}
+	.resume h3 {
+		font-size: 1.1rem !important;
+		line-height: 1 !important;
+	}
+	.abstract {
+		margin-left: 230px;
+		line-height: 1;
+	}
+	.resume {
+		height: 200px;
+		margin-right: 5px;
+	}
+	#content {
+		min-width: 600px;
+		max-width: none;
+	}
+	.favBtn {
+		font-size: 12px !important ;
+	}
+}
