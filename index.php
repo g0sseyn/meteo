@@ -36,6 +36,8 @@ try {
 			signalComment();
 		}else if ($_GET['action']=='parametre'){
 			parametre();
+		}else if ($_GET['action']=='recup'){
+			recup();
 		}
 	}	
 	else {

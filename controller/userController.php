@@ -22,7 +22,11 @@ function verifyPass(){
     	} 
 	   	$_SESSION['id'] = $userInfo['mail'];
 	   	$_SESSION['defautTown']	= $userInfo['defautTown'];
-	   	$_SESSION['pseudo']	= $userInfo['identifiant'];
+	   	if (isset($userInfo['identifiant'])) {
+	   		$_SESSION['pseudo']	= $userInfo['identifiant'];
+	   	}else {
+	   		$_SESSION['pseudo']	= $userInfo['mail'];
+	   	}
 	   		return 'ok';		
 	    }   
 	           
@@ -119,4 +123,27 @@ function addPseudo(){
 		$_SESSION['pseudo']=$_GET['pseudo'];
 		return 'ok';
 	}else return 'wrong';
+}
+function recupMail($mail){
+	$newPass=generePassword(10);
+	$userManager = new \Adrien\Meteo\Model\UserManager();
+    $userInfo = $userManager->userInfo($mail);
+    if ($userInfo) {
+    	$rep=$userManager->updatePass($mail,password_hash($newPass, PASSWORD_DEFAULT));
+    	if ($rep) {
+    		$mailRecup=mail($mail,'recuperation de mdp', 'votre nouveau mdp : '.$newPass);
+    		if ($mailRecup) {
+    			return 'oui';
+    		}else return 'non';
+    	}else return 'non';
+    }else return 'non';
+
+}
+function generePassword($size){	
+    $characters = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z");
+    $password='';
+    for($i=0;$i<$size;$i++){
+        $password .= ($i%2) ? strtoupper($characters[array_rand($characters)]) : $characters[array_rand($characters)];
+    }		
+    return $password;
 }

@@ -63,3 +63,9 @@ function parametre(){
 	require('view/frontend/parametre.php');
 	require('view/frontend/template.php');
 }
+function recup(){
+	$searchTown=false;	
+	require('view/frontend/nav.php');
+	require('view/frontend/recup.php');
+	require('view/frontend/template.php');
+}

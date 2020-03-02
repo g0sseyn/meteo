@@ -1,6 +1,7 @@
 <?php
 namespace Adrien\Meteo\Model;
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'Manager.php';
+
 class UserManager extends Manager
 {
 	public function userInfo($email){

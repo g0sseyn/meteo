@@ -6,7 +6,7 @@ class MeteoComplete {
 		$('#loc').show().html(this.response.name);
 	}
 	showIcon(){
-		$('#icon').attr('src','http://openweathermap.org/img/wn/'+this.response[4].weather[0].icon+'@2x.png');
+		$('#icon').html('<img  alt="icon" src="https://openweathermap.org/img/wn/'+this.response[4].weather[0].icon+'@2x.png">');
 	}
 	showDay(){
 		var date = new Date(this.response[4].dt*1000);

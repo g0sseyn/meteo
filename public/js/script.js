@@ -31,7 +31,7 @@ $('.formConnectionBtn').click(function(){
      if (response.responseText=='ok') {
      	window.location.href = 'index.php?action=meteo'
      }else {
-     	$('#errorConnection').html('<small>Mauvais identifiant ou mot de passe !</small>');
+     	$('#errorConnection').html('<small>Mauvais identifiant ou mot de passe !</small></br><small><a href="index.php?action=recup">mot de passe oublié ?</a></small>');
      }
    },'text');	
 })
@@ -84,6 +84,7 @@ function parametreFavorite(){
 	})
 }
 parametreFavorite();
+
 $('#defautTownBtn').click(function(){
 	$('#messageDefautTown').hide().html()
 	var defautTown=$('input:checked').val();
@@ -100,23 +101,23 @@ $('#newPassBtn').click(function(){
 	var newPassOne=$('#newPassword1').val();
 	var newPassTwo=$('#newPassword2').val();
 	if (mail==''||actualPass==''||newPassOne==''||newPassTwo=='') {
-		$('#newPassMsg').html('tout les champs doivent être rempli');
+		$('#newPassMsg').html('tout les champs doivent être rempli').css('color','red');
 		return;
 	}
 	if (newPassOne!==newPassTwo) {
-		$('#newPassMsg').html('Vos deux mots de passe doivent être identique');
+		$('#newPassMsg').html('Vos deux mots de passe doivent être identique').css('color','red');
 		return;
 	}
 	var response=$.post('controller/ajaxTraitment.php',{email:mail,password:actualPass,newPass:newPassOne},function(data){
 		if (response.responseText=='ok') {
 			var resp=$.post('controller/ajaxTraitment.php',{identifiant:mail,password:newPassOne},function(data){
 				if (resp.responseText=='ok') {
-					$('#newPassMsg').html('Mot de passe bien mis a jour');
+					$('#newPassMsg').html('Mot de passe bien mis a jour').css('color','green');
 				}else {
-					$('#newPassMsg').html('Votre mot de passe n\'a pas pus être mis a jour');
+					$('#newPassMsg').html('Votre mot de passe n\'a pas pus être mis a jour').css('color','red');
 				}
 			})
-		}else $('#newPassMsg').html('votre mot de passe actuel n\'est pas bon');
+		}else $('#newPassMsg').html('votre mot de passe actuel n\'est pas bon').css('color','red');
 	})
 
 })
@@ -124,14 +125,14 @@ $('#pseudoBtn').click(function(){
 	var pseudo=$('#pseudo').val();
 	$('#pseudoMsg').html();
 	if (pseudo=='') {
-		$('#pseudoMsg').html('erreur : veuillez rentrer un pseudo');
+		$('#pseudoMsg').html('erreur : veuillez rentrer un pseudo').css('color','red');
 		return;
 	}else {
 		var response=$.get('controller/ajaxTraitment.php',{pseudo:pseudo},function(){
 			if (response.responseText=='ok') {
-				$('#pseudoMsg').html('parfait : votre pseudo a bien été mis a jour');
+				$('#pseudoMsg').html('parfait : votre pseudo a bien été mis a jour').css('color','green');;
 			}else {
-				$('#pseudoMsg').html('erreur : veuillez recommencez plus tard !');
+				$('#pseudoMsg').html('erreur : veuillez recommencez plus tard !').css('color','red');;
 			}			
 		})
 	}
@@ -139,7 +140,8 @@ $('#pseudoBtn').click(function(){
 })
 
 /* ADMIN*/
-
+var resumeOK;
+var titleOK;
 
 $(document).ready(function(){
 	$('#resumeContent').keyup(function(){
@@ -147,9 +149,13 @@ $(document).ready(function(){
 		if ((255-nombreCaractere)<0) {
 			$('#caracLeft').html('Trop de caractère !');
 			$('#addNewsBtn').attr('disabled',true).removeClass('btn-primary').addClass('btn-danger');
+			resumeOK=false;
 		}else {
 			$('#caracLeft').html((255-nombreCaractere)+' restants');
-			$('#addNewsBtn').attr('disabled',false).removeClass('btn-danger').addClass('btn-primary');
+			resumeOK=true;
+			if (resumeOK&&titleOK) {
+				$('#addNewsBtn').attr('disabled',false).removeClass('btn-danger').addClass('btn-primary');
+			}
 		}
 	})
 })
@@ -158,10 +164,14 @@ $(document).ready(function(){
 		var nombreCaractere = $(this).val().length;
 		if ((150-nombreCaractere)<0) {
 			$('#caracTitleLeft').html('Trop de caractère !');	
-			$('#addNewsBtn').attr('disabled',true).removeClass('btn-primary').addClass('btn-danger');		
+			$('#addNewsBtn').attr('disabled',true).removeClass('btn-primary').addClass('btn-danger');
+			titleOK=false;	
 		}else {
 			$('#caracTitleLeft').html((150-nombreCaractere)+' restants');
-			$('#addNewsBtn').attr('disabled',false).removeClass('btn-danger').addClass('btn-primary');
+			titleOK=true;
+			if (resumeOK&&titleOK) {
+				$('#addNewsBtn').attr('disabled',false).removeClass('btn-danger').addClass('btn-primary');
+			}
 		}
 	})
 })
@@ -173,3 +183,15 @@ $('#changeBtn').click(function(){
 	apiCall.town=$('#search')[0].value;
 	apiCall.byTown();
 });
+/* RECUPERATION DE MDP */
+$('.recupBtn').click(function(){
+	$('#error').html('');
+	var recupMail=$('#recupEmail').val();
+	var response=$.get('controller/ajaxTraitment.php',{recupMail:recupMail},function(data){
+		if (response.responseText=='oui') {
+			$('#error').html('mail envoyé à : '+recupMail);
+		}else {
+			$('#error').html('email non trouvé dans notre base de donnée');
+		}
+	});
+})

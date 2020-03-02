@@ -121,14 +121,11 @@ class MeteoCompleteFiveDays {
 			break;
 		}
 	}
-	resetMeteo(){
-		$('#meteoDiv').html('');
-	}
 	showloc(){
 		$('#loc').show().html(this.response.city.name);
 	}
 	showIcon(){
-		$('#icon').attr('src','http://openweathermap.org/img/wn/'+this.response.list[0].weather[0].icon+'@2x.png');
+		$('#icon').html('<img  alt="icon" src="https://openweathermap.org/img/wn/'+this.response.list[0].weather[0].icon+'@2x.png">');
 	}
 	showDay(){
 		var date = new Date();
@@ -163,11 +160,11 @@ class MeteoCompleteFiveDays {
 		$('#wind').html(Math.round(this.response.list[0].wind.speed*3600/1000));
 	}
 	showNextMeteoIcon(){
-		$('#day0').attr('src','http://openweathermap.org/img/wn/'+this.response.list[0].weather[0].icon+'@2x.png');	
-		$('#day1').attr('src','http://openweathermap.org/img/wn/'+this.response.list[8-this.decalage].weather[0].icon+'@2x.png');	
-		$('#day2').attr('src','http://openweathermap.org/img/wn/'+this.response.list[16-this.decalage].weather[0].icon+'@2x.png');
-		$('#day3').attr('src','http://openweathermap.org/img/wn/'+this.response.list[24-this.decalage].weather[0].icon+'@2x.png');
-		$('#day4').attr('src','http://openweathermap.org/img/wn/'+this.response.list[32-this.decalage].weather[0].icon+'@2x.png');
+		$('#day0').html('<img  alt="icon météo du jour j" src="https://openweathermap.org/img/wn/'+this.response.list[0].weather[0].icon+'@2x.png">');	
+		$('#day1').html('<img  alt="icon météo du jour j+1" src="https://openweathermap.org/img/wn/'+this.response.list[8-this.decalage].weather[0].icon+'@2x.png">');	
+		$('#day2').html('<img  alt="icon météo du jour j+2" src="https://openweathermap.org/img/wn/'+this.response.list[16-this.decalage].weather[0].icon+'@2x.png">');
+		$('#day3').html('<img  alt="icon météo du jour j+3" src="https://openweathermap.org/img/wn/'+this.response.list[24-this.decalage].weather[0].icon+'@2x.png">');
+		$('#day4').html('<img  alt="icon météo du jour j+4" src="https://openweathermap.org/img/wn/'+this.response.list[32-this.decalage].weather[0].icon+'@2x.png">');
 	}
 	giveMinMaxTemp(){
 		this.mintemp0=1000;
@@ -312,7 +309,7 @@ class MeteoCompleteFiveDays {
    			var xPos = 20;
     		for (var i = 0; i < data.getNumberOfRows(); i++) {  			
        			var arrow = $('#chart_div')[0].appendChild(document.createElement('img'));
-        		arrow.src = '/smallarrow.png';
+        		arrow.src = 'public/img/smallarrow.png';
        			arrow.className = 'arrow';
        			arrow.id = 'arrow'+i;
 				arrow.style.top = (50) + 'px';

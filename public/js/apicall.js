@@ -1,6 +1,6 @@
 class ApiCall {
 	byTown(){
-		$.get('http://api.openweathermap.org/data/2.5/forecast?q='+this.town+'&lang=fr&APPID=94aeaac607f35f0321198d06698d24a6',data=>{
+		$.get('https://api.openweathermap.org/data/2.5/forecast?q='+this.town+'&lang=fr&APPID=94aeaac607f35f0321198d06698d24a6',data=>{
 			$('#errorTown').html('');
 			this.responseFiveDays = data;
 			var meteo = new MeteoCompleteFiveDays ;
@@ -9,7 +9,7 @@ class ApiCall {
 		})
 	}
 	byLocation(){	
-		$.get('http://api.openweathermap.org/data/2.5/forecast?lat='+this.lat+'&lon='+this.lon+'&lang=fr&APPID=94aeaac607f35f0321198d06698d24a6',data=>{
+		$.get('https://api.openweathermap.org/data/2.5/forecast?lat='+this.lat+'&lon='+this.lon+'&lang=fr&APPID=94aeaac607f35f0321198d06698d24a6',data=>{
 			this.responseFiveDays = data;
 			var meteo = new MeteoCompleteFiveDays ;
 		})
