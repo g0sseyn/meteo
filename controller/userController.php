@@ -53,7 +53,7 @@ function addFav($town){
 }
 function deco(){
 	session_destroy();
-    header('Location: index.php?action=meteo');
+    header('Location: index.html');
 }
 function validMail($email,$pass,$hidden){	
 	if (!preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#i", $email)){

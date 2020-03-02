@@ -1,0 +1,11 @@
+Options +FollowSymlinks
+RewriteEngine On
+
+RewriteRule ^([0-9]+)-  /meteo/news-$1 [NC]
+
+RewriteRule ^index.html$  /meteo/index.php [L]
+RewriteRule ^news-([0-9]+)$   /meteo/index.php?action=singlePost&id=$1 [L,NC]
+
+RewriteRule ^([a-z]+)-([0-9]+)$   /meteo/index.php?action=$1&id=$2 [L,NC]
+
+RewriteRule ^([a-z]+)$   /meteo/index.php?action=$1 [L,NC]

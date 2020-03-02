@@ -8,7 +8,7 @@ $('.formInscriptionBtn').click(function(){
 	var hidden=$('#hidden').val();
 	var response=$.post('controller/ajaxTraitment.php', { mail:mail,pass:pass,hidden:hidden},function(data) {
      if (response.responseText=='mail existant') {
-     	$('#error').html('<small>mail existant,veuillez vous connectez sur la page principal  <a href="index.php?action=meteo">ici</a></small><p><small>ou recommencez avec un autre mail</small></p>');
+     	$('#error').html('<small>mail existant,veuillez vous connectez sur la page principal  <a href="index.html">ici</a></small><p><small>ou recommencez avec un autre mail</small></p>');
      }else if (response.responseText=='error') {
      	$('#error').html('<small>erreur : rechargez la page et recommencez</small>');
      }else if (response.responseText=='Impossible de vous ajouter') {
@@ -18,7 +18,7 @@ $('.formInscriptionBtn').click(function(){
      }else if (response.responseText=='ok'){
      	$('#error').html('<p>Vous êtes bien inscris, vous allez être rediriger sur la page d\'accueil</p><p>veuillez vous connecter sur celle-ci</p>');
      	setTimeout(function(){
-     		window.location.href = 'index.php?action=meteo';
+     		window.location.href = 'index.html';
      	},5000);
      }
    },'text');	
@@ -29,9 +29,9 @@ $('.formConnectionBtn').click(function(){
 	var pass=$('#password').val();	
 	var response=$.post('controller/ajaxTraitment.php', { email:mail,password:pass},function(data) {
      if (response.responseText=='ok') {
-     	window.location.href = 'index.php?action=meteo'
+     	window.location.href = 'index.html'
      }else {
-     	$('#errorConnection').html('<small>Mauvais identifiant ou mot de passe !</small></br><small><a href="index.php?action=recup">mot de passe oublié ?</a></small>');
+     	$('#errorConnection').html('<small>Mauvais identifiant ou mot de passe !</small></br><small><a href="recup">mot de passe oublié ?</a></small>');
      }
    },'text');	
 })

@@ -2,7 +2,7 @@
 <article class="singleNews ">
     <div class="offset-sm-1 col-sm-10">
         <h3>
-            <a href="index.php?action=singlePost&id=<?= $post['id'] ?>"><?= htmlspecialchars($post['title_news']); ?></a>
+            <a href="<?= $post['id'] ?>-<?= $post['title_news'] ?>"><?= htmlspecialchars($post['title_news']); ?></a>
             <br/>
             <em class="date_news">le <?= $post['creation_date_news_fr'] ?></em>
         </h3>
@@ -38,7 +38,7 @@
         </div>
     <?php }else {?>
         <div class="offset-sm-4 col-sm-4 offset-sm-4 container">
-            <i>veuillez vous identifiez pour poster un commentaire <a href="index.php?action=inscription">ou vous inscrire</a></i>
+            <i>veuillez vous identifiez pour poster un commentaire <a href="inscription">ou vous inscrire</a></i>
         </div>    
     <?php } ?>
 </article>

@@ -1,6 +1,6 @@
 <?php ob_start(); ?>	
 <nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" id="titleDay" href="index.php?action=meteo"></a>
+  <a class="navbar-brand" id="titleDay" href="index.html"></a>
   <?php if (isset($searchTown)&&$searchTown) { ?>
   <div>
 	  <div class="form-inline">
@@ -16,18 +16,18 @@
       <?php if (isAdmin()) { ?>
         <form action="index.php?action=admin" method="post" class="center" id="formDeco">          
           <button type="submit" class="btn btn-danger">A</button>
-          <p class="smallfont"><a href="index.php?action=admin">espace<br>administration</a></p>     
+          <p class="smallfont"><a href="admin">espace<br>administration</a></p>     
         </form>
       <?php } ?>
     	  <form action="index.php?action=parametre" method="post">
        	  <button type="submit" class="btn btn-default btn-sm">
             <img src="public/img/houseicon.png">          	
-            <p class="smallfont"><a href="index.php?action=parametre">paramètres</a></p>
+            <p class="smallfont"><a href="parametre">paramètres</a></p>
           </button>
         </form>
         <form action="index.php?action=deco" method="post" class="center" id="formDeco">        	
   			  <button type="submit" class="btn btn-danger">X</button>
-  			  <p class="smallfont"><a href="index.php?action=deco">se déconnecter</a></p>			
+  			  <p class="smallfont"><a href="deco">se déconnecter</a></p>			
   		  </form>
     </div>
   <?php }else {?>
@@ -43,7 +43,7 @@
  		  </form>
  		  <div id="errorConnection"></div>
       <div id="linkInscription">
-        <a href="index.php?action=inscription">pas encore inscris ? inscrivez-vous vite</a>
+        <a href="inscription">pas encore inscris ? inscrivez-vous vite</a>
       </div>
  	  </div>
   <?php } ?>

@@ -30,7 +30,7 @@ function updateComment(){
     if (isset($_GET['news_id'])&&$_GET['news_id']>0){
         header('Location: index.php?action=adminPost&id=' . $_GET['news_id']);}
     else {
-        header('Location:index.php?action=admin');
+        header('Location:admin');
     }
 }
 function deleteComment(){
