@@ -360,3 +360,16 @@ hr {
 		font-size: 12px !important ;
 	}
 }
+@media all and (max-width: 768px) {
+	.formConnection {
+		flex-wrap: nowrap !important;
+	}
+	#iconMenu {
+		margin:auto;
+	}
+	.formConnectionBtn {
+		height: 38px;
+		width: 115px;
+		font-size: 13px !important;
+	}
+}

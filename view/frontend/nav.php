@@ -12,7 +12,7 @@
 	  <p id="errorTown" class="smallfont"></p>
 	</div>
   <?php }if (isIdentify()) { ?>
-    <div class="flex">
+    <div class="flex" id="iconMenu">
       <?php if (isAdmin()) { ?>
         <form action="index.php?action=admin" method="post" class="center" id="formDeco">          
           <button type="submit" class="btn btn-danger">A</button>
