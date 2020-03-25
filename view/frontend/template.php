@@ -14,7 +14,6 @@
 	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 	crossorigin="anonymous">			  	
 	</script>
-	<script type="text/javascript" src="public/js/FeedEk.min.js"></script>
 </head>
 <body class="site">
 	<div class="site-content">

@@ -9,7 +9,8 @@ try {
 		if ($_GET['action'] == 'home') {
 	        meteo();	    
 		}else if ($_GET['action']=='deco'){
-			deco();
+			$userController = new \Adrien\Meteo\Controller\UserController();
+			$userController->deco();
 		}else if ($_GET['action']=='meteo'){
 			meteo();
 		}else if ($_GET['action']=='singlePost'){
@@ -21,19 +22,26 @@ try {
 		}else if ($_GET['action']=='adminPost'){
 			adminPost();
 		}else if ($_GET['action']=='addPost'){
-			addPost();
+			$postController = new \Adrien\Meteo\Controller\PostController();
+			$postController->addPost();
 		}else if ($_GET['action']=='deletePost'){
-			deletePost();
+			$postController = new \Adrien\Meteo\Controller\PostController();
+			$postController->deletePost();
 		}else if ($_GET['action']=='updatePost'){
-			updatePost();
+			$postController = new \Adrien\Meteo\Controller\PostController();
+			$postController->updatePost();
 		}else if ($_GET['action']=='updateComment'){
-			updateComment();
+			$commentController = new \Adrien\Meteo\Controller\CommentController();
+			$commentController->updateComment();
 		}else if ($_GET['action']=='deleteComment'){
-			deleteComment();
+			$commentController = new \Adrien\Meteo\Controller\CommentController();
+			$commentController->deleteComment();
 		}else if ($_GET['action']=='addComment'){
-			addComment();
+			$commentController = new \Adrien\Meteo\Controller\CommentController();
+			$commentController->addComment();
 		}else if ($_GET['action']=='signalComment'){
-			signalComment();
+			$commentController = new \Adrien\Meteo\Controller\CommentController();
+			$commentController->signalComment();
 		}else if ($_GET['action']=='parametre'){
 			parametre();
 		}else if ($_GET['action']=='recup'){

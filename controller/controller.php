@@ -3,7 +3,8 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARA
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'CommentManager.php';
 function meteo(){
 	$searchTown=true;
-	$posts=listPosts();
+	$postController = new \Adrien\Meteo\Controller\PostController();
+	$posts=$postController->listPosts();
 	require('view/frontend/nav.php');
 	require('view/frontend/allPost.php');
 	require('view/frontend/meteoComplete.php');
@@ -30,8 +31,10 @@ function admin(){
         throw new Exception('Veuillez vous identifier');
     } 
 	$searchTown=false;
-	$posts=listPosts();
-	$signaledComments=getAllSignaledComments();
+	$postController = new \Adrien\Meteo\Controller\PostController();
+	$posts=$postController->listPosts();
+	$commentController = new \Adrien\Meteo\Controller\CommentController();
+	$signaledComments=$commentController->getAllSignaledComments();
 	require('view/frontend/nav.php');
 	require('view/backend/admin.php');
 	require('view/frontend/template.php');
